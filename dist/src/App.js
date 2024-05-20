@@ -12,6 +12,7 @@ const student_route_1 = __importDefault(require("./routes/student_route"));
 const post_route_1 = __importDefault(require("./routes/post_route"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
+const cors_1 = __importDefault(require("cors"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
         const db = mongoose_1.default.connection;
@@ -20,6 +21,12 @@ const initApp = () => {
         mongoose_1.default.connect(process.env.DATABASE_URL).then(() => {
             app.use(body_parser_1.default.json());
             app.use(body_parser_1.default.urlencoded({ extended: true }));
+            app.use((0, cors_1.default)({
+                origin: 'http://localhost:8081'
+            }));
+            app.get('/', (req, res) => {
+                res.send('Server is up and running!');
+            });
             app.use("/student", student_route_1.default);
             app.use("/post", post_route_1.default);
             app.use("/auth", auth_route_1.default);

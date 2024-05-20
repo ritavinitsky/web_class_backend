@@ -1,6 +1,8 @@
 import appInit from "./App";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
+import cors from 'cors';
+
 
 appInit().then((app) => {
   if (process.env.NODE_ENV === "development") {
