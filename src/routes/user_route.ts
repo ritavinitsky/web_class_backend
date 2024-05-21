@@ -1,18 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const router = express_1.default.Router();
-const user_controller_1 = __importDefault(require("../controllers/user_controller"));
-const auth_middleware_1 = __importDefault(require("../common/auth_middleware"));
+import express from "express";
+const router = express.Router();
+import UserController from "../controllers/user_controller";
+import authMiddleware from "../common/auth_middleware";
 /**
 * @swagger
 * tags:
 *   name: User
 *   description: The Authentication API
 */
+
 /**
 * @swagger
 * components:
@@ -48,6 +44,7 @@ const auth_middleware_1 = __importDefault(require("../common/auth_middleware"));
 *           imgUrl: 'url'
 *           password: 'rvh29vj21msH'
 */
+
 /**
 * @swagger
 * /user:
@@ -66,7 +63,7 @@ const auth_middleware_1 = __importDefault(require("../common/auth_middleware"));
 *               items:
 *                  $ref: '#/components/schemas/User'
 */
-router.get("/", auth_middleware_1.default, user_controller_1.default.get.bind(user_controller_1.default));
+router.get("/",  authMiddleware, UserController.get.bind(UserController));
 /**
  * @swagger
  * /user/{id}:
@@ -91,7 +88,7 @@ router.get("/", auth_middleware_1.default, user_controller_1.default.get.bind(us
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
-router.get("/:id", auth_middleware_1.default, user_controller_1.default.getById.bind(user_controller_1.default));
+router.get("/:id", authMiddleware, UserController.getById.bind(UserController));
 /**
  * @swagger
  * /user/{id}:
@@ -122,7 +119,7 @@ router.get("/:id", auth_middleware_1.default, user_controller_1.default.getById.
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
-router.put("/:id", auth_middleware_1.default, user_controller_1.default.put.bind(user_controller_1.default));
+router.put("/:id",authMiddleware, UserController.put.bind(UserController));
 /**
  * @swagger
  * /user/{id}:
@@ -143,6 +140,6 @@ router.put("/:id", auth_middleware_1.default, user_controller_1.default.put.bind
  *       '201':
  *         description: 'Post has been deleted'
  */
-router.delete("/:id", auth_middleware_1.default, user_controller_1.default.remove.bind(user_controller_1.default));
-exports.default = router;
-//# sourceMappingURL=user_route.js.map
+router.delete("/:id", authMiddleware, UserController.remove.bind(UserController));
+
+export default router;
