@@ -12,6 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/*import BaseController from "./base_controller";
+import Post, { IPost } from "../models/post_model";
+import { Request, Response } from "express";
+
+class PostController extends BaseController<IPost> {
+    constructor() {
+        super(Post);
+    }
+
+    async post(req: Request, res: Response) {
+        req.body.owner = req.body.user._id;
+        super.post(req, res);
+    }
+}
+
+export default new PostController();
+*/
 const base_controller_1 = __importDefault(require("./base_controller"));
 const post_model_1 = __importDefault(require("../models/post_model"));
 class PostController extends base_controller_1.default {
@@ -23,7 +40,20 @@ class PostController extends base_controller_1.default {
             post: { get: () => super.post }
         });
         return __awaiter(this, void 0, void 0, function* () {
-            req.body.owner = req.body.user._id;
+            req.body.creator_id = req.body.user._id;
+            _super.post.call(this, req, res);
+        });
+    }
+    put(req, res) {
+        const _super = Object.create(null, {
+            post: { get: () => super.post }
+        });
+        return __awaiter(this, void 0, void 0, function* () {
+            let item = yield this.ItemModel.findById(req.params.id);
+            item.post_title = req.body.post_title;
+            item.post_text = req.body.post_text;
+            //item.imgUrl = req.body.imgUrl
+            req.body = item;
             _super.post.call(this, req, res);
         });
     }

@@ -82,7 +82,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         yield user.save();
         console.log("logged in successfully");
-        return res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
+        return res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken, 'user_id': user._id });
     }
     catch (error) {
         console.log(error);

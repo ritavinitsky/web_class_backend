@@ -97,6 +97,8 @@ class BaseController<ModelType> {
       async getById( req: Request, res: Response) {
         console.log(req.params);
         try {
+            console.log("getById");
+        
           const item = await this.ItemModel.findById(req.params.id);
           return res.status(200).send(item);
         } catch (error) {

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    console.log("auth middleware");
+    console.log("auth middleware: " + req.headers['authorization']);
 
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];

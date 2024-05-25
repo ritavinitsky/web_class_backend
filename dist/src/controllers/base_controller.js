@@ -106,6 +106,7 @@ class BaseController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
             try {
+                console.log("getById");
                 const item = yield this.ItemModel.findById(req.params.id);
                 return res.status(200).send(item);
             }
