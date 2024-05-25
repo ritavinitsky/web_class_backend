@@ -17,12 +17,29 @@ export default new PostController();
 */
 import BaseController from "./base_controller";
 import Post, { IPost } from "../models/post_model";
+import User, { IUser } from "../models/user_model";
 import { Request, Response } from "express";
 
 class PostController extends BaseController<IPost> {
     constructor() {
         super(Post);
     }
+
+    async get(req: Request, res: Response) {
+        console.log("get " + req.query.creator_id);
+        try {
+          if (req.query.creator_id) {
+            const item = await Post.find({ creator_id: req.query.creator_id });
+            return res.status(200).send(item);
+          } else {
+            const item = await Post.find();
+            return res.status(200).send(item);
+          }
+        } catch (error) {
+          console.log(error);
+          res.status(400).send(error.message);
+        }
+      }
 
     async post(req: Request, res: Response) {
         req.body.creator_id = req.body.user._id;

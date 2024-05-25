@@ -47,17 +47,18 @@ class UserController extends base_controller_1.default {
     }
     put(req, res) {
         const _super = Object.create(null, {
-            post: { get: () => super.post }
+            put: { get: () => super.put }
         });
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let item = yield this.ItemModel.findById(req.params.id);
+                console.log("update user id: " + req.params.id);
+                let item = yield user_model_1.default.findById(req.params.id);
                 item.name = req.body.name;
                 item.email = req.body.email;
                 item.age = req.body.age;
                 //item.imgUrl = req.body.imgUrl;
                 req.body = item;
-                _super.post.call(this, req, res);
+                _super.put.call(this, req, res);
             }
             catch (err) {
                 console.log("The error in updating user is: " + err);

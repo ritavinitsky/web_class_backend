@@ -35,6 +35,25 @@ class PostController extends base_controller_1.default {
     constructor() {
         super(post_model_1.default);
     }
+    get(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("get " + req.query.creator_id);
+            try {
+                if (req.query.creator_id) {
+                    const item = yield post_model_1.default.find({ creator_id: req.query.creator_id });
+                    return res.status(200).send(item);
+                }
+                else {
+                    const item = yield post_model_1.default.find();
+                    return res.status(200).send(item);
+                }
+            }
+            catch (error) {
+                console.log(error);
+                res.status(400).send(error.message);
+            }
+        });
+    }
     post(req, res) {
         const _super = Object.create(null, {
             post: { get: () => super.post }
