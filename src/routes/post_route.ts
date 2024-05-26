@@ -1,22 +1,3 @@
-/*import express from "express";
-const router = express.Router();
-import postController from "../controllers/post_controller";
-import authMiddleware from "../common/auth_middleware";
-
-
-
-router.get("/", postController.get.bind(postController));
-
-router.get("/:id", postController.getById.bind(postController));
-
-router.post("/", authMiddleware, postController.post.bind(postController));
-
-router.put("/:id", postController.put.bind(postController));
-
-router.delete("/:id", postController.remove.bind(postController));
-
-export default router;
-*/
 import express from "express";
 const router = express.Router();
 import PostController from "../controllers/post_controller";
@@ -53,10 +34,10 @@ import authMiddleware from "../common/auth_middleware";
 *             type: string
 *             description: The post link to image on the server. For test purposes there is a "url" link as default to test the user itself
 *       example:
-*         creator_id: '1I23d45'
-*         post_title: 'The Post title'
-*         post_text: 'The post text ...'
-*         imgUrl: 'url'
+*         creator_id: '2097519b5d'
+*         post_title: 'hello'
+*         post_text: 'hello everybody'
+*         
 */
 
 /**
@@ -148,7 +129,7 @@ router.post("/",authMiddleware, PostController.post.bind(PostController));
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the post to update'
  *     responses:
  *       '201':
@@ -174,7 +155,7 @@ router.put("/:id",authMiddleware, PostController.put.bind(PostController));
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the post to delete'
  *     responses:
  *       '201':

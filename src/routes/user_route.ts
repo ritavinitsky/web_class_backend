@@ -38,11 +38,11 @@ import authMiddleware from "../common/auth_middleware";
 *           type: string
 *           description: The user password
 *       example:
-*           name: 'jhon'
-*           email: 'testemail@gmail.com'
+*           name: 'abc'
+*           email: 'abc@gmail.com'
 *           age: '25'
 *           imgUrl: 'url'
-*           password: 'rvh29vj21msH'
+*           password: '12345'
 */
 
 /**
@@ -78,7 +78,7 @@ router.get("/",  authMiddleware, UserController.get.bind(UserController));
  *         required: true
  *         schema:
  *           type: string
- *           example: 1I23d45
+ *           example: 1ed56723d4599
  *           description: Unique ID of the student to retrieve
  *     responses:
  *       '200':
@@ -109,7 +109,7 @@ router.get("/:id", authMiddleware, UserController.getById.bind(UserController));
  *         required: true
  *         schema:
  *           type: string
- *           example: 1I23d45
+ *           example: 1ed56723d4599
  *           description: Unique ID of the user to update
  *     responses:
  *       201:
@@ -134,7 +134,7 @@ router.put("/:id",authMiddleware, UserController.put.bind(UserController));
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the user to delete'
  *     responses:
  *       '201':

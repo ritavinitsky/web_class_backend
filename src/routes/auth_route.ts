@@ -37,8 +37,8 @@ const router = express.Router();
 *           type: string
 *           description: The user password
 *       example:
-*         email: 'bob@gmail.com'
-*         password: '123456'
+*         email: 'abc@gmail.com'
+*         password: '1234'
 *     Tokens:
 *       type: object
 *       required:
@@ -52,8 +52,8 @@ const router = express.Router();
 *           type: string
 *           description: The JWT refresh token
 *       example:
-*         accessToken: '123cd123x1xx1'
-*         refreshToken: '134r2134cr1x3c'
+*         accessToken: 's8h55gk90c3'
+*         refreshToken: 'b4x54g730cn'
 */
 
 
