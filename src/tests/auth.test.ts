@@ -146,10 +146,10 @@ import User from '../models/user_model'
 
 
 const user = {
-    name: "ASDFG",
-    age: "23",
-    email: "teststudent@gmail.com",
-    password: "123456",
+    name: "abcd",
+    age: "25",
+    email: "abcd@gmail.com",
+    password: "12345",
     //imgUrl: "url",
 }
 
