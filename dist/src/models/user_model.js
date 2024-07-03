@@ -1,29 +1,4 @@
 "use strict";
-/*
-import mongoose from "mongoose";
-
-export interface IUser {
-    email: string;
-    password: string;
-    tokens: string[];
-}
-
-const userSchema = new mongoose.Schema<IUser>({
-    email: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    tokens: {
-        type: [String]
-    }
-});
-
-export default mongoose.model<IUser>("User", userSchema);
-*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -45,6 +20,9 @@ const user_schema = new mongoose_1.default.Schema({
     password: {
         type: String,
         required: true
+    },
+    dailyCal: {
+        type: String
     },
     tokens: {
         type: [String]

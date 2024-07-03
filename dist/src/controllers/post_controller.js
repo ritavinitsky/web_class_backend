@@ -12,23 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/*import BaseController from "./base_controller";
-import Post, { IPost } from "../models/post_model";
-import { Request, Response } from "express";
-
-class PostController extends BaseController<IPost> {
-    constructor() {
-        super(Post);
-    }
-
-    async post(req: Request, res: Response) {
-        req.body.owner = req.body.user._id;
-        super.post(req, res);
-    }
-}
-
-export default new PostController();
-*/
 const base_controller_1 = __importDefault(require("./base_controller"));
 const post_model_1 = __importDefault(require("../models/post_model"));
 class PostController extends base_controller_1.default {

@@ -3,25 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/*import express from "express";
-const router = express.Router();
-import postController from "../controllers/post_controller";
-import authMiddleware from "../common/auth_middleware";
-
-
-
-router.get("/", postController.get.bind(postController));
-
-router.get("/:id", postController.getById.bind(postController));
-
-router.post("/", authMiddleware, postController.post.bind(postController));
-
-router.put("/:id", postController.put.bind(postController));
-
-router.delete("/:id", postController.remove.bind(postController));
-
-export default router;
-*/
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const post_controller_1 = __importDefault(require("../controllers/post_controller"));
@@ -57,10 +38,10 @@ const auth_middleware_1 = __importDefault(require("../common/auth_middleware"));
 *             type: string
 *             description: The post link to image on the server. For test purposes there is a "url" link as default to test the user itself
 *       example:
-*         creator_id: '1I23d45'
-*         post_title: 'The Post title'
-*         post_text: 'The post text ...'
-*         imgUrl: 'url'
+*         creator_id: '2097519b5d'
+*         post_title: 'hello'
+*         post_text: 'hello everybody'
+*
 */
 /**
 * @swagger
@@ -148,7 +129,7 @@ router.post("/", auth_middleware_1.default, post_controller_1.default.post.bind(
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the post to update'
  *     responses:
  *       '201':
@@ -173,7 +154,7 @@ router.put("/:id", auth_middleware_1.default, post_controller_1.default.put.bind
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the post to delete'
  *     responses:
  *       '201':

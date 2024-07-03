@@ -42,11 +42,11 @@ const auth_middleware_1 = __importDefault(require("../common/auth_middleware"));
 *           type: string
 *           description: The user password
 *       example:
-*           name: 'jhon'
-*           email: 'testemail@gmail.com'
+*           name: 'abc'
+*           email: 'abc@gmail.com'
 *           age: '25'
 *           imgUrl: 'url'
-*           password: 'rvh29vj21msH'
+*           password: '12345'
 */
 /**
 * @swagger
@@ -81,7 +81,7 @@ router.get("/", auth_middleware_1.default, user_controller_1.default.get.bind(us
  *         required: true
  *         schema:
  *           type: string
- *           example: 1I23d45
+ *           example: 1ed56723d4599
  *           description: Unique ID of the student to retrieve
  *     responses:
  *       '200':
@@ -112,7 +112,7 @@ router.get("/:id", auth_middleware_1.default, user_controller_1.default.getById.
  *         required: true
  *         schema:
  *           type: string
- *           example: 1I23d45
+ *           example: 1ed56723d4599
  *           description: Unique ID of the user to update
  *     responses:
  *       201:
@@ -137,7 +137,7 @@ router.put("/:id", auth_middleware_1.default, user_controller_1.default.put.bind
  *         required: true
  *         schema:
  *           type: 'string'
- *           example: '1I23d45'
+ *           example: '1ed56723d4599'
  *           description: 'Unique ID of the user to delete'
  *     responses:
  *       '201':

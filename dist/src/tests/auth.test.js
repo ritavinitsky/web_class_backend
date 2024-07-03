@@ -154,10 +154,10 @@ const App_1 = __importDefault(require("../App"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_model_1 = __importDefault(require("../models/user_model"));
 const user = {
-    name: "ASDFG",
-    age: "23",
-    email: "teststudent@gmail.com",
-    password: "123456",
+    name: "abcd",
+    age: "25",
+    email: "abcd@gmail.com",
+    password: "12345",
     //imgUrl: "url",
 };
 let app;

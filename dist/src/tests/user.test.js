@@ -32,18 +32,18 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 }));
 const testUser = {
     _id: null,
-    name: "ASDFG",
-    age: "23",
-    email: "teststudent@gmail.com",
-    password: "123456",
+    name: "abcd",
+    age: "25",
+    email: "abcd@gmail.com",
+    password: "12345",
     //imgUrl: "url",
     accessToken: null
 };
 const updatedTestStudent = {
-    name: "ASDFGh",
-    age: "236",
-    email: "updatedstudent@gmail.com",
-    password: "123457",
+    name: "abab",
+    age: "26",
+    email: "abab@gmail.com",
+    password: "123456",
     // imgUrl: "url",
 };
 describe("User tests", () => {

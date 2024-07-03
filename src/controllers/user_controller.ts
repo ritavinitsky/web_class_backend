@@ -15,9 +15,11 @@ class UserController extends BaseController<IUser> {
             item.name = req.body.name;
             item.email = req.body.email;
             item.age = req.body.age;
+            item.dailyCal = req.body.dailyCal;
             //item.imgUrl = req.body.imgUrl;
             req.body = item;
             super.put(req, res);
+            console.log(item.dailyCal)
         }catch(err){
             console.log("The error in updating user is: " + err)
             res.status(400).send(err.message);

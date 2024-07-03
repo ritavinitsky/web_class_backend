@@ -9,6 +9,7 @@ const register = async (req: Request, res: Response) =>
     const email = req.body.email
     const name = req.body.name
     const age = req.body.age
+    const dailyCal = '0'
     //const imgUrl = req.body.imgUrl
     const password = req.body.password
     if(email == null || password == null)
@@ -27,9 +28,11 @@ const register = async (req: Request, res: Response) =>
             'name': name,
             'age': age,
             'email': email,
-            'password': hashedPassword
+            'password': hashedPassword,
+            'dailyCal': dailyCal
         })
         return res.status(200).send(newUser)
+        console.log(newUser);
     } catch (error) {
         console.log(error)
         return res.status(400).send(error.message)
@@ -69,21 +72,25 @@ const login = async (req: Request, res: Response) =>
 
         }
         const validPassword = bcrypt.compare(password, user.password)
-        if(validPassword == null)
+        if(validPassword)
+        {
+            const {accessToken, refreshToken} = generateTokens(user._id.toString())
+            if(user.tokens.length == 0) {
+                user.tokens = [refreshToken.toString()]
+            }else {
+                user.tokens.push(refreshToken.toString());
+            }
+            await user.save()
+            console.log("logged in successfully")
+            return res.status(200).send({'accessToken': accessToken, 'refreshToken': refreshToken, 'user_id': user._id})
+            
+        }
+        else
         {
             console.log("invalid user or password")
             return res.status(400).send("invalid user or password")
             
         }
-        const {accessToken, refreshToken} = generateTokens(user._id.toString())
-        if(user.tokens.length == 0) {
-            user.tokens = [refreshToken.toString()]
-        }else {
-            user.tokens.push(refreshToken.toString());
-        }
-        await user.save()
-        console.log("logged in successfully")
-        return res.status(200).send({'accessToken': accessToken, 'refreshToken': refreshToken, 'user_id': user._id})
         
     } catch (error) {
         console.log(error)
