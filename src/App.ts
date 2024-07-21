@@ -7,7 +7,8 @@ import mongoose from "mongoose";
 import postRoute from "./routes/post_route";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
-import userRoute from "./routes/user_route"
+import userRoute from "./routes/user_route";
+import foodRoute from "./routes/food_route"; 
 import cors from 'cors';
 
 
@@ -16,7 +17,7 @@ const initApp = () => {
     const db = mongoose.connection;
     db.on("error", (err) => console.log(err));
     db.once("open", () => console.log("Database connected"));
-    mongoose.connect(process.env.DATABASE_URL).then(() => {
+    mongoose.connect("mongodb+srv://ritavinitsky:Muralove999!@eatandfit.asdyajl.mongodb.net/?retryWrites=true&w=majority&appName=EatandFit").then(() => {
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(cors({
@@ -26,6 +27,11 @@ const initApp = () => {
         res.send('Server is up and running!');
       });
       //app.use("/student", studentRoute);
+
+      // Serve static files from the 'public' directory
+      app.use('/img', express.static(path.join(__dirname, 'public/img')));
+
+      app.use("/api/recipes", foodRoute);
       app.use("/user",userRoute);
       app.use("/post", postRoute);
       app.use("/auth", authRoute);

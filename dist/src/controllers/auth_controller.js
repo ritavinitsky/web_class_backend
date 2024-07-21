@@ -16,83 +16,91 @@ const user_model_1 = __importDefault(require("../models/user_model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    const email = req.body.email;
-    const name = req.body.name;
-    const age = req.body.age;
+    console.log("Received request body:", req.body);
+    const { email, name, age, password } = req.body;
     const dailyCal = '0';
-    //const imgUrl = req.body.imgUrl
-    const password = req.body.password;
-    if (email == null || password == null) {
-        return res.status(400).send("missing email or password");
+    if (!email || !password) {
+        console.log("Missing email or password");
+        return res.status(400).json({ message: "Missing email or password" });
     }
     try {
-        const user = yield user_model_1.default.findOne({ email: email });
-        if (user) {
-            return res.status(200).send("user already exists");
+        const existingUser = yield user_model_1.default.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: "Email already exists", });
         }
+        console.log("Hashing password...");
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+        console.log("Creating new user...");
         const newUser = yield user_model_1.default.create({
-            'name': name,
-            'age': age,
-            'email': email,
-            'password': hashedPassword,
-            'dailyCal': dailyCal
+            name,
+            age,
+            email,
+            password: hashedPassword,
+            dailyCal,
         });
-        return res.status(200).send(newUser);
-        console.log(newUser);
+        console.log("New user created:", newUser);
+        return res.status(200).json(newUser); // 201 Created
     }
     catch (error) {
-        console.log(error);
-        return res.status(400).send(error.message);
+        console.error("Error during registration:", error);
+        return res.status(500).json({ message: "An error occurred while registering the user" });
     }
 });
 const generateTokens = (userId) => {
-    const token = jsonwebtoken_1.default.sign({ _id: userId }, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
+    const accessToken = jsonwebtoken_1.default.sign({ _id: userId }, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
     const refreshToken = jsonwebtoken_1.default.sign({ _id: userId }, process.env.REFRESH_TOKEN_SECRET);
-    return {
-        accessToken: token,
-        refreshToken: refreshToken
-    };
+    console.log("Generated tokens - Access Token:", accessToken, "Refresh Token:", refreshToken);
+    return { accessToken, refreshToken };
 };
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("try login");
-    const email = req.body.email;
-    const password = req.body.password;
-    if (email == null || password == null) {
-        return res.status(400).send("missing email or password");
-        console.log("missing email or password");
+    console.log("Attempting login...");
+    const { email, password } = req.body;
+    if (!email || !password) {
+        console.log("Missing email or password");
+        return res.status(400).json({ message: "Missing email or password" });
     }
     try {
-        console.log("try login 2");
-        const user = yield user_model_1.default.findOne({ email: email });
-        if (user == null) {
-            console.log("invalid user or password");
-            return res.status(400).send("invalid user or password");
+        console.log("Fetching user from database...");
+        // Fetch user with email and password fields
+        const user = yield user_model_1.default.findOne({ email }).select('email password tokens');
+        if (!user) {
+            console.log("User not found");
+            return res.status(400).json({ message: "Invalid email or password" });
         }
-        const validPassword = bcrypt_1.default.compare(password, user.password);
+        console.log("Comparing passwords...");
+        // Log the input and stored password for debugging
+        console.log("Input password:", password);
+        console.log("Stored hashed password:", user.password);
+        // Compare the input password with the stored hashed password
+        const validPassword = yield bcrypt_1.default.compare(password, user.password);
+        console.log("Password valid?:", validPassword);
         if (validPassword) {
             const { accessToken, refreshToken } = generateTokens(user._id.toString());
-            if (user.tokens.length == 0) {
-                user.tokens = [refreshToken.toString()];
+            // Ensure tokens array exists
+            if (!user.tokens) {
+                user.tokens = [refreshToken];
             }
             else {
-                user.tokens.push(refreshToken.toString());
+                user.tokens = user.tokens.filter(token => token !== refreshToken); // Remove old refresh tokens if necessary
+                user.tokens.push(refreshToken);
             }
             yield user.save();
-            console.log("logged in successfully");
-            return res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken, 'user_id': user._id });
+            console.log("Login successful");
+            return res.status(200).json({
+                accessToken,
+                refreshToken,
+                user_id: user._id
+            });
         }
         else {
-            console.log("invalid user or password");
-            return res.status(400).send("invalid user or password");
+            console.log("Invalid password");
+            return res.status(400).json({ message: "Invalid email or password" });
         }
     }
     catch (error) {
-        console.log(error);
-        console.log("error in login");
-        return res.status(400).send(error.message);
+        console.error("Error during login:", error);
+        return res.status(500).json({ message: "An error occurred during login" });
     }
 });
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
