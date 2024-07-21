@@ -4,7 +4,7 @@
   "description": "SCE 2024 backend",
   "main": "app.js",
   "scripts": {
-    "start": "copy .env_dev .env && tsc && node dist/src/Server.js",
+    "start": "cp .env_dev .env && tsc && node dist/src/Server.js",
     "dev": "cp .env_dev .env && nodemon ./src/Server.ts",
     "test": "cp .env_test .env && jest --detectOpenHandles --forceExit",
     "testUser": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/user.test.ts",
