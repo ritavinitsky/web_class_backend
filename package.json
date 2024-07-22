@@ -11,8 +11,7 @@
     "testUser": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/user.test.ts",
     "testAuth": "cp .env_test .env && jest --detectOpenHandles --forceExit --runInBand ./src/tests/auth.test.ts",
     "testPost": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/post.test.ts",
-    "lint": "eslint . --ext .ts",
-    "postinstall": "npm rebuild"
+    "lint": "eslint . --ext .ts"
   },
   "author": "Rita vinitsky",
   "license": "ISC",
