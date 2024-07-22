@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node dist/src/Server.js",
+    "build": "tsc",
     "dev": "cp .env_dev .env && nodemon ./src/Server.ts",
     "test": "cp .env_test .env && jest --detectOpenHandles --forceExit",
     "testUser": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/user.test.ts",

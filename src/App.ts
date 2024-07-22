@@ -28,7 +28,6 @@ const initApp = () => {
       });
       //app.use("/student", studentRoute);
 
-
       app.use("/api/recipes", foodRoute);
       app.use("/user",userRoute);
       app.use("/post", postRoute);

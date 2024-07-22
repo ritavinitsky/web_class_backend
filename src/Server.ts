@@ -16,7 +16,8 @@ appInit().then((app) => {
         },
         servers: [
           {
-            url: "http://localhost:" + process.env.PORT,
+
+            url: "http://localhost:3000",
           },
         ],
       },
