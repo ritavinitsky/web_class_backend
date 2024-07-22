@@ -3,6 +3,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import cors from 'cors';
 
+const port = process.env.PORT || 3000;
 
 appInit().then((app) => {
   if (process.env.NODE_ENV === "development") {
@@ -17,7 +18,7 @@ appInit().then((app) => {
         servers: [
           {
 
-            url: "http://localhost:3000",
+            url: `http://localhost:${port}`,
           },
         ],
       },
@@ -27,9 +28,9 @@ appInit().then((app) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
   }
 
-  app.listen(process.env.PORT, () => {
+  app.listen(port, () => {
     console.log(
-      `Example app listening at http://localhost:${process.env.PORT}`
+      `Example app listening at http://localhost:${port}`
     );
   });
 });

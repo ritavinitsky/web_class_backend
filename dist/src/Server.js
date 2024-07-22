@@ -1,4 +1,7 @@
 "use strict";
+
+const port = process.env.PORT || 3000;
+
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -18,7 +21,7 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
                 },
                 servers: [
                     {
-                        url: "http://localhost:3000",
+                        url: `http://localhost:${port}`,
                     },
                 ],
             },
@@ -27,8 +30,8 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
         const specs = (0, swagger_jsdoc_1.default)(options);
         app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
     }
-    app.listen(process.env.PORT, () => {
-        console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+    app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`);
     });
 });
 //# sourceMappingURL=Server.js.map
