@@ -29,8 +29,6 @@ const initApp = () => {
       //app.use("/student", studentRoute);
 
       // Serve static files from the 'public' directory
-      app.use('/img', express.static(path.join(__dirname, 'public/img')));
-
       app.use("/api/recipes", foodRoute);
       app.use("/user",userRoute);
       app.use("/post", postRoute);
