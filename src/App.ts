@@ -20,9 +20,11 @@ const initApp = () => {
     mongoose.connect("mongodb+srv://ritavinitsky:Muralove999!@eatandfit.asdyajl.mongodb.net/?retryWrites=true&w=majority&appName=EatandFit").then(() => {
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
-      app.use(cors({
-        origin: 'http://localhost:8081'
-      }));
+      // app.use(cors({
+      //   origin: 'http://localhost:8081'
+      // }));
+
+      app.use(cors());
       app.get('/', (req, res) => {
         res.send('Server is up and running!');
       });
