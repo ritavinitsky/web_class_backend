@@ -18,7 +18,7 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
                 },
                 servers: [
                     {
-                        url: "http://localhost:" + (process.env.PORT||3000),
+                        url: "http://localhost:" + process.env.PORT,
                     },
                 ],
             },

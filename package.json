@@ -4,16 +4,16 @@
   "description": "SCE 2024 backend",
   "main": "app.js",
   "scripts": {
-    "start": "cp .env_dev .env && tsc && node dist/src/Server.js",
-     "build": "tsc",
+    "start": "node dist/src/Server.js",
     "dev": "cp .env_dev .env && nodemon ./src/Server.ts",
     "test": "cp .env_test .env && jest --detectOpenHandles --forceExit",
     "testUser": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/user.test.ts",
     "testAuth": "cp .env_test .env && jest --detectOpenHandles --forceExit --runInBand ./src/tests/auth.test.ts",
     "testPost": "cp .env_test .env && jest --detectOpenHandles --forceExit ./src/tests/post.test.ts",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "postinstall": "npm rebuild"
   },
-  "author": "Eliav Menachi",
+  "author": "Rita vinitsky",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
