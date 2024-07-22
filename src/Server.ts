@@ -3,6 +3,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import cors from 'cors';
 
+const port = 300 || process.env.PORT;
 
 appInit().then((app) => {
   if (process.env.NODE_ENV === "development") {
@@ -17,7 +18,7 @@ appInit().then((app) => {
         servers: [
           {
 
-            url: "http://localhost:3000",
+            url: `http://localhost:${port}`,
           },
         ],
       },
@@ -29,7 +30,7 @@ appInit().then((app) => {
 
   app.listen(process.env.PORT, () => {
     console.log(
-      `Example app listening at http://localhost:${process.env.PORT}`
+      `Example app listening at http://localhost:${port}`
     );
   });
 });
