@@ -26,18 +26,20 @@ interface IRating {
 }
 
 export interface IRecipe {
-    name: string;
     ingredients: string;
     instructions: string;
+    name: string;
     img: string;
+    cal:number;
     ratings: IRating[]; // New field for storing user ratings
 }
 
 const RecipeSchema: Schema = new Schema({
-    name: { type: String, required: true },
     ingredients: { type: String, required: true },
     instructions: { type: String, required: true },
+    name: { type: String, required: true },
     img: { type: String, required: true },
+    cal:{ type: number, required: true },
     ratings: [{ userId: { type: String, required: true }, rate: { type: Number, min: 1, max: 500 } }] // Array of ratings
 });
 
