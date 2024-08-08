@@ -1,6 +1,7 @@
 {
   "name": "sce_backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "SCE 2024 backend",
   "main": "app.js",
   "scripts": {
