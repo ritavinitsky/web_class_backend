@@ -15,7 +15,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 // PUT route to submit or update a recipe rating
-router.put('/api/recipes/:id/rate', async (req, res) => {
+router.put('/:id/rate', async (req, res) => {
     const { id } = req.params;
     const { userId, rate } = req.body; // Expecting userId and rate in request body
 
