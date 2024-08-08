@@ -6,7 +6,7 @@ export interface IUser {
     age: string;
     //imgUrl: string;
     password: string;
-    dailyCal: string;
+    dailyCal: number;
     tokens: string[];
   }
 
@@ -28,7 +28,8 @@ const user_schema = new mongoose.Schema<IUser>({
         required: true
     },
     dailyCal: {
-        type: String
+        type: number,
+         required: true
     },
     tokens: {
         type: [String]

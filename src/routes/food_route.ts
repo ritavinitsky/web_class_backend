@@ -13,4 +13,40 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+
+// PUT route to submit or update a recipe rating
+router.put('/api/recipes/:id/rate', async (req, res) => {
+    const { id } = req.params;
+    const { userId, rate } = req.body; // Expecting userId and rate in request body
+
+    if (!userId || rate < 1 || rate > 5) {
+        return res.status(400).json({ message: 'Invalid input' });
+    }
+
+    try {
+        // Find the recipe by ID
+        const recipe = await Recipe.findById(id);
+        if (!recipe) {
+            return res.status(404).json({ message: 'Recipe not found' });
+        }
+
+        // Check if the user has already rated this recipe
+        const existingRating = recipe.ratings.find(r => r.userId === userId);
+        if (existingRating) {
+            // Update the existing rating
+            existingRating.rate = rate;
+        } else {
+            // Add a new rating
+            recipe.ratings.push({ userId, rate });
+        }
+
+        // Save the updated recipe
+        await recipe.save();
+        res.status(200).json(recipe);
+    } catch (error) {
+        console.error("Error updating rating:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 export default router;
