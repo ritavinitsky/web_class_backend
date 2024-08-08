@@ -38,7 +38,7 @@ const RecipeSchema: Schema = new Schema({
     ingredients: { type: String, required: true },
     instructions: { type: String, required: true },
     img: { type: String, required: true },
-    ratings: [{ userId: { type: String, required: true }, rate: { type: Number, min: 1, max: 5 } }] // Array of ratings
+    ratings: [{ userId: { type: String, required: true }, rate: { type: Number, min: 1, max: 500 } }] // Array of ratings
 });
 
 const Recipe = mongoose.model<IRecipe & Document>('Recipe', RecipeSchema);

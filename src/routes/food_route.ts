@@ -13,6 +13,22 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+// Get a recipe by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const recipe = await Recipe.findById(id);
+        if (!recipe) {
+            return res.status(404).json({ message: 'Recipe not found' });
+        }
+        res.status(200).json(recipe);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 
 // PUT route to submit or update a recipe rating
 router.put('/:id/rate', async (req, res) => {
@@ -44,8 +60,8 @@ router.put('/:id/rate', async (req, res) => {
         await recipe.save();
         res.status(200).json(recipe);
     } catch (error) {
-        console.error("Error updating rating:", error);
-        res.status(500).json({ message: 'Internal server error' });
+        console.error("Error updating rating-back:", error);
+        res.status(500).json({ message: 'Internal server error-back' });
     }
 });
 
