@@ -9,15 +9,15 @@ router.get('/', async (req: Request, res: Response) => {
         const recipes = await Recipe.find();
         res.status(200).json(recipes);
     } catch (error) {
+        console.error("Error fetching recipes:", error.message); // Log error
         res.status(500).send("Error fetching recipes: " + error.message);
     }
 });
 
 // Get a recipe by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
-    console.log(id);
-    
+    console.log('Received request for recipe ID:', id); // Log the ID
 
     try {
         const recipe = await Recipe.findById(id);
@@ -26,16 +26,16 @@ router.get('/:id', async (req, res) => {
         }
         res.status(200).json(recipe);
     } catch (error) {
+        console.error("Error fetching recipe by ID:", error.message); // Log error
         res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-
-
 // PUT route to submit or update a recipe rating
-router.put('/:id/rate', async (req, res) => {
+router.put('/:id/rate', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { userId, rate } = req.body; // Expecting userId and rate in request body
+    console.log(`Received rating request for recipe ID: ${id} from user ID: ${userId} with rate: ${rate}`); // Log the ID and user ID
 
     if (!userId || rate < 1 || rate > 5) {
         return res.status(400).json({ message: 'Invalid input' });
@@ -62,8 +62,8 @@ router.put('/:id/rate', async (req, res) => {
         await recipe.save();
         res.status(200).json(recipe);
     } catch (error) {
-        console.error("Error updating rating-back:", error);
-        res.status(500).json({ message: 'Internal server error-back' });
+        console.error("Error updating rating:", error.message); // Log error
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
