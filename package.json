@@ -1,11 +1,10 @@
 {
   "name": "sce_backend",
   "version": "1.0.0",
-  "type": "module",
   "description": "SCE 2024 backend",
   "main": "app.js",
   "scripts": {
-    "start": "node src/App.ts",
+    "start": "node dist/src/Server.js",
     "build": "tsc",
     "dev": "cp .env_dev .env && nodemon ./src/Server.ts",
     "test": "cp .env_test .env && jest --detectOpenHandles --forceExit",
