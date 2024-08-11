@@ -1,7 +1,4 @@
 "use strict";
-
-const port = process.env.PORT || 3000;
-
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const App_1 = __importDefault(require("./App"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const port = process.env.PORT || 3000;
 (0, App_1.default)().then((app) => {
     if (process.env.NODE_ENV === "development") {
         const options = {

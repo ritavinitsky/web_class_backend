@@ -30,9 +30,9 @@ export interface IRecipe {
     instructions: string;
     name: string;
     img: string;
-    cal:number;
-    isVegan: boolean;
-    isVegetarian: boolean;
+    // cal:number;
+    // isVegan: boolean;
+    // isVegetarian: boolean;
     ratings: IRating[]; // New field for storing user ratings
 }
 
@@ -41,9 +41,9 @@ const RecipeSchema: Schema = new Schema({
     instructions: { type: String, required: true },
     name: { type: String, required: true },
     img: { type: String, required: true },
-    cal:{ type: number, required: true },
-    isVegan: { type: boolean, required: false },
-    isVegetarian: { type: boolean, required: false },
+    // cal:{ type: String, required: true },
+    // isVegan: { type: boolean, required: false },
+    // isVegetarian: { type: boolean, required: false },
     ratings: [{ userId: { type: String, required: true }, rate: { type: Number, min: 1, max: 500 } }] // Array of ratings
 });
 

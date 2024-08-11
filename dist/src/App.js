@@ -30,7 +30,6 @@ const initApp = () => {
                 res.send('Server is up and running!');
             });
             //app.use("/student", studentRoute);
-            // Serve static files from the 'public' directory
             app.use("/api/recipes", food_route_1.default);
             app.use("/user", user_route_1.default);
             app.use("/post", post_route_1.default);
