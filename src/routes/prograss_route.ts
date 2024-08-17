@@ -1,17 +1,15 @@
 import express, { Request, Response } from 'express';
-import Prograss from '../models/prograss_model';
-
+import Prograss from '../models/prograss_model'; // Adjust path if necessary
 
 const router = express.Router();
 
 // Get all documents with date and passed fields
 router.get('/', async (req: Request, res: Response) => {
     try {
-        // Fetch all documents from the Prograss collection
-        const prograssRecords = await Prograss.find({}, 'date passed'); // Fetch only date and passed fields
+        const prograssRecords = await Prograss.find({}, 'date passed');
         res.status(200).json(prograssRecords);
     } catch (error) {
-        console.error("Error fetching prograss records:", error.message); // Log error
+        console.error("Error fetching prograss records:", error.message);
         res.status(500).send("Error fetching prograss records: " + error.message);
     }
 });
@@ -20,14 +18,11 @@ router.get('/', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
     try {
         const { date, passed } = req.body;
-        
-        // Create a new Prograss document
         const newPrograss = new Prograss({ date: new Date(date), passed });
         const savedPrograss = await newPrograss.save();
-
         res.status(201).json(savedPrograss);
     } catch (error) {
-        console.error("Error creating prograss record:", error.message); // Log error
+        console.error("Error creating prograss record:", error.message);
         res.status(500).send("Error creating prograss record: " + error.message);
     }
 });
