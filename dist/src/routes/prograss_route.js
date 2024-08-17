@@ -13,12 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const prograss_model_1 = __importDefault(require("../models/prograss_model"));
+const PrograssModel_1 = __importDefault(require("../models/PrograssModel"));
 const router = express_1.default.Router();
 // Get all documents with date and passed fields
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const prograssRecords = yield prograss_model_1.default.find({}, 'date passed');
+        const prograssRecords = yield PrograssModel_1.default.find({}, 'date passed');
         res.status(200).json(prograssRecords);
     }
     catch (error) {
@@ -30,7 +30,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { date, passed } = req.body;
-        const newPrograss = new prograss_model_1.default({ date: new Date(date), passed });
+        const newPrograss = new PrograssModel_1.default({ date: new Date(date), passed });
         const savedPrograss = yield newPrograss.save();
         res.status(201).json(savedPrograss);
     }

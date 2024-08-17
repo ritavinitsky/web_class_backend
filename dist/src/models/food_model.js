@@ -1,5 +1,4 @@
 "use strict";
-// import mongoose, { Document, Schema } from 'mongoose';
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -24,20 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// export interface IRecipe {
-//     name: string;
-//     ingredients: string;
-//     instructions: string;
-//     img: string;
-// }
-// const RecipeSchema: Schema = new Schema({
-//     name: { type: String, required: true },
-//     ingredients: { type: String, required: true },
-//     instructions: { type: String, required: true },
-//     img: { type: String, required: true },
-// });
-// const Recipe = mongoose.model<IRecipe & Document>('Recipe', RecipeSchema);
-// export default Recipe;
 const mongoose_1 = __importStar(require("mongoose"));
 const RecipeSchema = new mongoose_1.Schema({
     ingredients: { type: String, required: true },

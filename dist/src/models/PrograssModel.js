@@ -30,4 +30,4 @@ const PrograssSchema = new mongoose_1.Schema({
 });
 const Prograss = mongoose_1.default.model('prograss', PrograssSchema);
 exports.default = Prograss;
-//# sourceMappingURL=prograss_model.js.map
+//# sourceMappingURL=PrograssModel.js.map
