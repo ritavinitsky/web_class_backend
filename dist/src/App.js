@@ -14,6 +14,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
 const user_route_1 = __importDefault(require("./routes/user_route"));
 const food_route_1 = __importDefault(require("./routes/food_route"));
+const prograss_route_1 = __importDefault(require("./routes/prograss_route"));
 const cors_1 = __importDefault(require("cors"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
@@ -34,6 +35,7 @@ const initApp = () => {
             app.use("/user", user_route_1.default);
             app.use("/post", post_route_1.default);
             app.use("/auth", auth_route_1.default);
+            app.use("/prograss", prograss_route_1.default);
             resolve(app);
         });
     });

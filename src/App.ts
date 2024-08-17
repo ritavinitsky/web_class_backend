@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
 import userRoute from "./routes/user_route";
 import foodRoute from "./routes/food_route"; 
+import prograssRoute from "./routes/prograss_route"; 
 import cors from 'cors';
 
 
@@ -32,6 +33,7 @@ const initApp = () => {
       app.use("/user",userRoute);
       app.use("/post", postRoute);
       app.use("/auth", authRoute);
+      app.use("/prograss", prograssRoute);
       resolve(app);
     })
   });
