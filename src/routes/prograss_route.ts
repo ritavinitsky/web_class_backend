@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import Prograss from '../models/prograss_model'; // Adjust path if necessary
+import Prograss from '../models/prograss_model'; 
 
 const router = express.Router();
 

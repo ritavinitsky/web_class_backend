@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const prograss_model_1 = __importDefault(require("../models/prograss_model")); // Adjust path if necessary
+const prograss_model_1 = __importDefault(require("../models/prograss_model"));
 const router = express_1.default.Router();
 // Get all documents with date and passed fields
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
