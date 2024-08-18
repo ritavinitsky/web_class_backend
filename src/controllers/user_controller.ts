@@ -1,7 +1,7 @@
 import User, { IUser } from "../models/user_model";
 import {Request,Response} from "express";
 import BaseController from "./base_controller";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 
 class UserController extends BaseController<IUser> {
     constructor() {
@@ -18,7 +18,7 @@ class UserController extends BaseController<IUser> {
     
         try {
             console.log(`Finding user by email: ${email}`);
-            const user = await User.findOne({ email });
+            const user = await User.findOne({  email: email.toLowerCase() });
     
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
@@ -52,6 +52,7 @@ class UserController extends BaseController<IUser> {
             item.email = req.body.email;
             item.age = req.body.age;
             item.dailyCal = req.body.dailyCal;
+            item.password = req.body.password;
             //item.imgUrl = req.body.imgUrl;
             req.body = item;
             super.put(req, res);

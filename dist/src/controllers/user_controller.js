@@ -28,7 +28,7 @@ class UserController extends base_controller_1.default {
             }
             try {
                 console.log(`Finding user by email: ${email}`);
-                const user = yield user_model_1.default.findOne({ email });
+                const user = yield user_model_1.default.findOne({ email: email.toLowerCase() });
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }
@@ -60,6 +60,7 @@ class UserController extends base_controller_1.default {
                 item.email = req.body.email;
                 item.age = req.body.age;
                 item.dailyCal = req.body.dailyCal;
+                item.password = req.body.password;
                 //item.imgUrl = req.body.imgUrl;
                 req.body = item;
                 _super.put.call(this, req, res);
