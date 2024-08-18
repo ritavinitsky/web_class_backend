@@ -143,6 +143,9 @@ router.put("/:id",authMiddleware, UserController.put.bind(UserController));
  */
 router.delete("/:id", authMiddleware, UserController.remove.bind(UserController));
 
-router.put("/email/:email/password", authMiddleware, UserController.updatePasswordByEmail);
+// Fetch user by email
+router.get("/email/:email", UserController.getByEmail.bind(UserController));
+
+router.put("/email/:email/password", UserController.updatePasswordByEmail.bind(UserController));
 
 export default router;

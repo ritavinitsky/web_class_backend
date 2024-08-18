@@ -19,10 +19,32 @@ class UserController extends base_controller_1.default {
     constructor() {
         super(user_model_1.default);
     }
+    getByEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            if (!email) {
+                return res.status(400).json({ message: 'Email is required' });
+            }
+            try {
+                console.log(`Finding user by email: ${email}`);
+                const user = yield user_model_1.default.findOne({ email });
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+                console.log('User found:', user);
+                res.status(200).json(user);
+            }
+            catch (err) {
+                console.error('Error fetching user by email:', err);
+                res.status(500).send(err.message);
+            }
+        });
+    }
     updatePasswordByEmail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("update password by email");
-            const { password, email } = req.body;
+            const { password } = req.body;
+            const { email } = req.params;
             if (!email || !password) {
                 return res.status(400).json({ message: 'Email and password are required' });
             }
@@ -33,10 +55,8 @@ class UserController extends base_controller_1.default {
                     return res.status(404).json({ message: 'User not found' });
                 }
                 console.log('User found:', user);
-                // Hash the new password
                 const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
                 console.log('Hashed password:', hashedPassword);
-                // Update the user's password
                 user.password = hashedPassword;
                 yield user.save();
                 console.log('User updated successfully');
@@ -49,25 +69,26 @@ class UserController extends base_controller_1.default {
         });
     }
     put(req, res) {
-        const _super = Object.create(null, {
-            put: { get: () => super.put }
-        });
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log("update user id: " + req.params.id);
                 let item = yield user_model_1.default.findById(req.params.id);
+                if (!item) {
+                    res.status(404).json({ message: 'User not found' });
+                    return;
+                }
                 item.name = req.body.name;
                 item.email = req.body.email;
                 item.age = req.body.age;
                 item.dailyCal = req.body.dailyCal;
                 item.password = req.body.password;
-                //item.imgUrl = req.body.imgUrl;
-                req.body = item;
-                _super.put.call(this, req, res);
+                // item.imgUrl = req.body.imgUrl;
+                yield item.save(); // Save the updated item
+                res.status(200).json(item);
                 console.log(item.dailyCal);
             }
             catch (err) {
-                console.log("The error in updating user is: " + err);
+                console.error("The error in updating user is: " + err);
                 res.status(400).send(err.message);
             }
         });
