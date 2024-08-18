@@ -21,14 +21,14 @@ class UserController extends base_controller_1.default {
     }
     updatePasswordByEmail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email } = req.params;
-            const { password } = req.body;
+            console.log("update password by email");
+            const { password, email } = req.body;
             if (!email || !password) {
                 return res.status(400).json({ message: 'Email and password are required' });
             }
             try {
                 console.log(`Finding user by email: ${email}`);
-                const user = yield user_model_1.default.findOne({ email: email.toLowerCase() });
+                const user = yield user_model_1.default.findOne({ email });
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }

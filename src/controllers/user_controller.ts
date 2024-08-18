@@ -9,8 +9,8 @@ class UserController extends BaseController<IUser> {
     }
 
     async updatePasswordByEmail(req: Request, res: Response) {
-        const { email } = req.params;
-        const { password } = req.body;
+        console.log("update password by email");
+        const { password,email } = req.body;
     
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required' });
@@ -18,8 +18,7 @@ class UserController extends BaseController<IUser> {
     
         try {
             console.log(`Finding user by email: ${email}`);
-            const user = await User.findOne({  email: email.toLowerCase() });
-    
+            const user = await User.findOne({email});
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
