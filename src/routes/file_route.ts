@@ -1,11 +1,10 @@
 import multer from 'multer'
 import express from "express";
-import fs from 'fs/promises';
-import path from 'path';
-
+const fs = require('fs');
+const path = require('path');
 const router = express.Router();
 
-// const base = "http://212.116.187.226:3000"
+const base = "https://backend-69iy.onrender.com"
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,7 +26,7 @@ router.post('/file', upload.single("file"), function (req, res) {
     const imageData = base64ToArray[1];
     const fileName = (new Date().getTime() / 1000|0) + '.' + extension;
     const imagePath = path.join(__dirname, './../../../uploads/') + fileName;
-    fs.writeFile(imagePath, imageData,  { encoding: 'base64' });
+    fs.writeFileSync(imagePath, imageData,  { encoding: 'base64' });
     
     res.status(200).send({url: imagePath});
 });
