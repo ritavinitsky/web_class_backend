@@ -25,7 +25,7 @@ router.post('/file', upload.single("file"), function (req, res) {
     const imageData = base64ToArray[1];
     const fileName = (new Date().getTime() / 1000 | 0) + '.' + extension;
     const imagePath = path_1.default.join(__dirname, './../../../uploads/') + fileName;
-    promises_1.default.writeFileSync(imagePath, imageData, { encoding: 'base64' });
+    promises_1.default.writeFile(imagePath, imageData, { encoding: 'base64' });
     res.status(200).send({ url: imagePath });
 });
 module.exports = router;

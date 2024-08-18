@@ -27,7 +27,7 @@ router.post('/file', upload.single("file"), function (req, res) {
     const imageData = base64ToArray[1];
     const fileName = (new Date().getTime() / 1000|0) + '.' + extension;
     const imagePath = path.join(__dirname, './../../../uploads/') + fileName;
-    fs.writeFileSync(imagePath, imageData,  { encoding: 'base64' });
+    fs.writeFile(imagePath, imageData,  { encoding: 'base64' });
     
     res.status(200).send({url: imagePath});
 });
