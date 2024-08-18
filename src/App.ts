@@ -12,6 +12,7 @@ import prograssRoute from "./routes/prograss_route";
 import fileRoute from "./routes/file_route"; 
 import cors from 'cors';
 
+app.use('/uploads', express.static('uploads'));
 
 const initApp = () => {
   const promise = new Promise<Express>((resolve) => {
@@ -33,7 +34,6 @@ const initApp = () => {
       app.use("/post", postRoute);
       app.use("/auth", authRoute);
       app.use("/prograss", prograssRoute);
-      app.use('/uploads', express.static('uploads'));
       app.use("/file", fileRoute);
       resolve(app);
     })

@@ -16,6 +16,7 @@ const food_route_1 = __importDefault(require("./routes/food_route"));
 const prograss_route_1 = __importDefault(require("./routes/prograss_route"));
 const file_route_1 = __importDefault(require("./routes/file_route"));
 const cors_1 = __importDefault(require("cors"));
+app.use('/uploads', express_1.default.static('uploads'));
 const initApp = () => {
     const promise = new Promise((resolve) => {
         const db = mongoose_1.default.connection;
@@ -35,7 +36,6 @@ const initApp = () => {
             app.use("/post", post_route_1.default);
             app.use("/auth", auth_route_1.default);
             app.use("/prograss", prograss_route_1.default);
-            app.use('/uploads', express_1.default.static('uploads'));
             app.use("/file", file_route_1.default);
             resolve(app);
         });
