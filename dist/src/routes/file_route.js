@@ -2,13 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-const multer_1 = __importDefault(require("multer"));
+const multer = require('multer');
 const express_1 = __importDefault(require("express"));
 const fs = require('fs');
 const path = require('path');
 const router = express_1.default.Router();
 const base = "https://backend-69iy.onrender.com/";
-const storage = multer_1.default.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads');
     },
@@ -16,7 +16,7 @@ const storage = multer_1.default.diskStorage({
         cb(null, Date.now() + '.jpg'); //Appending .jpg
     }
 });
-const upload = (0, multer_1.default)({ storage: storage });
+const upload = multer({ storage: storage });
 router.post('/file', upload.single("file"), function (req, res) {
     console.log("inside file post");
     var file = JSON.parse(req.body.file);

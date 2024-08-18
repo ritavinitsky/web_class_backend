@@ -1,4 +1,4 @@
-import multer from 'multer'
+const multer = require('multer');
 import express from "express";
 const fs = require('fs');
 const path = require('path');
