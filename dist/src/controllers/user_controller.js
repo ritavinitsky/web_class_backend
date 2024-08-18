@@ -19,25 +19,27 @@ class UserController extends base_controller_1.default {
     constructor() {
         super(user_model_1.default);
     }
-    // Method to update password based on email
     updatePasswordByEmail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            const { password } = req.body;
+            if (!email || !password) {
+                return res.status(400).json({ message: 'Email and password are required' });
+            }
             try {
-                const { email } = req.params;
-                const { password } = req.body;
-                if (!email || !password) {
-                    return res.status(400).json({ message: 'Email and password are required' });
-                }
-                // Find the user by email
+                console.log(`Finding user by email: ${email}`);
                 const user = yield user_model_1.default.findOne({ email });
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }
+                console.log('User found:', user);
                 // Hash the new password
                 const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
+                console.log('Hashed password:', hashedPassword);
                 // Update the user's password
                 user.password = hashedPassword;
                 yield user.save();
+                console.log('User updated successfully');
                 res.status(200).json({ message: 'Password updated successfully' });
             }
             catch (err) {
