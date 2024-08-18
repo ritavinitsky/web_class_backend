@@ -1,8 +1,8 @@
 "use strict";
-// import { Request, Response } from "express";
-// import User from "../models/user_model";
-// import bcrypt from "bcryptjs";  // Change this import
-// import jwt from 'jsonwebtoken';
+// import { Request, Response } from "express"
+// import User from "../models/user_model"
+// import bcrypt from "bcryptjs"
+// import jwt from 'jsonwebtoken'
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -66,7 +66,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const generateTokens = (userId) => {
     const accessToken = jsonwebtoken_1.default.sign({ _id: userId }, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
     const refreshToken = jsonwebtoken_1.default.sign({ _id: userId }, process.env.REFRESH_TOKEN_SECRET);
-    console.log("Generated tokens - Access Token:", accessToken, "Refresh Token:", refreshToken);
+    console.log("Generated tokens - Access Token:", accessToken, "Refresh Token:", refreshToken, "userId:", userId);
     return { accessToken, refreshToken };
 };
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -152,15 +152,21 @@ const refresh = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //extract token from header
     const authHeader = req.headers['authorization'];
     const oldRefreshToken = authHeader && authHeader.split(' ')[1];
+    console.log("authHeader: ", authHeader);
+    console.log("oldRefreshToken: ", oldRefreshToken);
     if (oldRefreshToken == null) {
         return res.status(401).send("missing token");
     }
     //verify token
     jsonwebtoken_1.default.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET, (err, userInfo) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("server verify: ");
         if (err) {
+            console.log(err);
             return res.status(403).send(err.name);
         }
         try {
+            console.log("userInfo._id");
+            console.log(userInfo._id);
             const user = yield user_model_1.default.findById(userInfo._id);
             if (user == null || user.tokens == null || !user.tokens.includes(oldRefreshToken)) {
                 if (user.tokens != null) {

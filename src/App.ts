@@ -3,13 +3,13 @@ const app = express();
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-//import studentRoute from "./routes/student_route";
 import postRoute from "./routes/post_route";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
 import userRoute from "./routes/user_route";
 import foodRoute from "./routes/food_route"; 
 import prograssRoute from "./routes/prograss_route"; 
+import fileRoute from "./routes/file_route"; 
 import cors from 'cors';
 
 
@@ -27,13 +27,14 @@ const initApp = () => {
       app.get('/', (req, res) => {
         res.send('Server is up and running!');
       });
-      //app.use("/student", studentRoute);
 
       app.use("/api/recipes", foodRoute);
       app.use("/user",userRoute);
       app.use("/post", postRoute);
       app.use("/auth", authRoute);
       app.use("/prograss", prograssRoute);
+      app.use('/uploads', express.static('uploads'));
+      app.use("/file", fileRoute);
       resolve(app);
     })
   });

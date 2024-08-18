@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_controller_1 = __importDefault(require("./base_controller"));
 const post_model_1 = __importDefault(require("../models/post_model"));
+const fs = require('fs');
 class PostController extends base_controller_1.default {
     constructor() {
         super(post_model_1.default);
@@ -24,10 +25,36 @@ class PostController extends base_controller_1.default {
             try {
                 if (req.query.creator_id) {
                     const item = yield post_model_1.default.find({ creator_id: req.query.creator_id });
+                    item.forEach(function (elem) {
+                        if (elem.imgUrl != "") {
+                            var imgContent = "";
+                            try {
+                                imgContent = fs.readFileSync(elem.imgUrl, 'base64');
+                                imgContent = "data:image/png;base64," + imgContent;
+                            }
+                            catch (err) {
+                                // console.error(err);
+                            }
+                            elem.imgContent = imgContent;
+                        }
+                    });
                     return res.status(200).send(item);
                 }
                 else {
                     const item = yield post_model_1.default.find();
+                    item.forEach(function (elem) {
+                        if (elem.imgUrl != "") {
+                            var imgContent = "";
+                            try {
+                                imgContent = fs.readFileSync(elem.imgUrl, 'base64');
+                                imgContent = "data:image/png;base64," + imgContent;
+                            }
+                            catch (err) {
+                                // console.error(err);
+                            }
+                            elem.imgContent = imgContent;
+                        }
+                    });
                     return res.status(200).send(item);
                 }
             }
@@ -54,7 +81,7 @@ class PostController extends base_controller_1.default {
             let item = yield this.ItemModel.findById(req.params.id);
             item.post_title = req.body.post_title;
             item.post_text = req.body.post_text;
-            //item.imgUrl = req.body.imgUrl
+            item.imgUrl = req.body.imgUrl;
             req.body = item;
             _super.post.call(this, req, res);
         });
