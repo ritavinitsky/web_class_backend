@@ -144,5 +144,6 @@ router.put("/:id", auth_middleware_1.default, user_controller_1.default.put.bind
  *         description: 'Post has been deleted'
  */
 router.delete("/:id", auth_middleware_1.default, user_controller_1.default.remove.bind(user_controller_1.default));
+router.put("/email/:email/password", auth_middleware_1.default, user_controller_1.default.updatePasswordByEmail);
 exports.default = router;
 //# sourceMappingURL=user_route.js.map

@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import UserController from "../controllers/user_controller";
 import authMiddleware from "../common/auth_middleware";
+import bcrypt from "bcryptjs";
 /**
 * @swagger
 * tags:
@@ -88,6 +89,7 @@ router.get("/",  authMiddleware, UserController.get.bind(UserController));
  *             schema:
  *               $ref: '#/components/schemas/User'
  */
+
 router.get("/:id", authMiddleware, UserController.getById.bind(UserController));
 /**
  * @swagger
@@ -141,5 +143,7 @@ router.put("/:id",authMiddleware, UserController.put.bind(UserController));
  *         description: 'Post has been deleted'
  */
 router.delete("/:id", authMiddleware, UserController.remove.bind(UserController));
+
+router.put("/email/:email/password", authMiddleware, UserController.updatePasswordByEmail);
 
 export default router;

@@ -14,9 +14,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
 const base_controller_1 = __importDefault(require("./base_controller"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 class UserController extends base_controller_1.default {
     constructor() {
         super(user_model_1.default);
+    }
+    // Method to update password based on email
+    updatePasswordByEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { email } = req.params;
+                const { password } = req.body;
+                if (!email || !password) {
+                    return res.status(400).json({ message: 'Email and password are required' });
+                }
+                // Find the user by email
+                const user = yield user_model_1.default.findOne({ email });
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+                // Hash the new password
+                const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+                // Update the user's password
+                user.password = hashedPassword;
+                yield user.save();
+                res.status(200).json({ message: 'Password updated successfully' });
+            }
+            catch (err) {
+                console.error('Error updating password:', err);
+                res.status(500).send(err.message);
+            }
+        });
     }
     put(req, res) {
         const _super = Object.create(null, {
