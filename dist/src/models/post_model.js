@@ -1,34 +1,8 @@
 "use strict";
-// import mongoose from "mongoose";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// export interface IPost {
-//     creator_id: string;
-//     post_title: string;
-//     post_text: string;
-//     imgUrl: string
-//   }
-// const post_schema = new mongoose.Schema<IPost>({
-//     creator_id: {
-//         type: String,
-//         required: true
-//     },
-//     post_title: {
-//         type: String,
-//         required: true
-//     },
-//     post_text: {
-//         type: String,
-//         required: true
-//     }
-//     imgUrl: {
-//        type: String,
-//        required: true
-//    }
-// })
-// export default mongoose.model<IPost>("Post", post_schema)
 const mongoose_1 = __importDefault(require("mongoose"));
 const post_schema = new mongoose_1.default.Schema({
     creator_id: {

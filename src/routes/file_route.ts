@@ -1,10 +1,11 @@
 import multer from 'multer'
 import express from "express";
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
+
 const router = express.Router();
 
-const base = "https://backend-69iy.onrender.com/"
+// const base = "http://212.116.187.226:3000"
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

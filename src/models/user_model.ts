@@ -4,7 +4,7 @@ export interface IUser {
     name: string;
     email: string;
     age: string;
-    //imgUrl: string;
+    // imgUrl: string;
     password: string;
     dailyCal: string;
     tokens: string[];
