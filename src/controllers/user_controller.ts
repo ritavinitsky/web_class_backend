@@ -1,7 +1,7 @@
 import User, { IUser } from "../models/user_model";
 import {Request,Response} from "express";
 import BaseController from "./base_controller";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 class UserController extends BaseController<IUser> {
     constructor() {
@@ -37,7 +37,7 @@ class UserController extends BaseController<IUser> {
                 res.status(500).send(err.message);
             }
         }
-        
+
     async put(req: Request, res: Response) {
         try{
             console.log("update user id: " + req.params.id)

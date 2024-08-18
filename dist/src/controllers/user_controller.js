@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
 const base_controller_1 = __importDefault(require("./base_controller"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class UserController extends base_controller_1.default {
     constructor() {
         super(user_model_1.default);
@@ -34,7 +34,7 @@ class UserController extends base_controller_1.default {
                     return res.status(404).json({ message: 'User not found' });
                 }
                 // Hash the new password
-                const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+                const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
                 // Update the user's password
                 user.password = hashedPassword;
                 yield user.save();

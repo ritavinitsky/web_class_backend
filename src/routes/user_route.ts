@@ -2,7 +2,6 @@ import express from "express";
 const router = express.Router();
 import UserController from "../controllers/user_controller";
 import authMiddleware from "../common/auth_middleware";
-import bcrypt from "bcryptjs";
 /**
 * @swagger
 * tags:
