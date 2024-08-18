@@ -35,26 +35,26 @@ class UserController extends BaseController<IUser> {
         console.log("update password by email");
         const { password } = req.body;
         const { email } = req.params;
-
+    
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required' });
         }
-
+    
         try {
             console.log(`Finding user by email: ${email}`);
             const user = await User.findOne({ email });
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-
+    
             console.log('User found:', user);
-
+    
             const hashedPassword = await bcrypt.hash(password, 10);
             console.log('Hashed password:', hashedPassword);
-
+    
             user.password = hashedPassword;
             await user.save();
-
+    
             console.log('User updated successfully');
             res.status(200).json({ message: 'Password updated successfully' });
         } catch (err) {
@@ -62,6 +62,7 @@ class UserController extends BaseController<IUser> {
             res.status(500).send(err.message);
         }
     }
+    
 
     async put(req: Request, res: Response): Promise<void> {
         try {
