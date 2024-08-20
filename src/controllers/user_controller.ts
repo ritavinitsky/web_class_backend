@@ -1,6 +1,9 @@
 import User, { IUser } from "../models/user_model";
 import { Request, Response } from "express";
 import BaseController from "./base_controller";
+import nodemailer from 'nodemailer';
+import expressAsyncHandler from 'express-async-handler';
+import dotenv from 'dotenv';
 import bcrypt from "bcryptjs";
 
 class UserController extends BaseController<IUser> {
@@ -56,6 +59,29 @@ class UserController extends BaseController<IUser> {
             await user.save();
     
             console.log('User updated successfully');
+
+             // Setup email transport
+             const transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                  user: process.env.EMAILUSER,
+                  pass: process.env.EMAILPASS,
+                }
+            });
+            
+             // Email options
+             const mailOptions = {
+                from: process.env.EMAILUSER,
+                to: email,
+                subject: 'Password Reset',
+                text: `Your password has been updated to: ${password}` // Changed 'message' to 'text'
+            };
+
+             // Send the email
+             await transporter.sendMail(mailOptions);
+             console.log('Email sent successfully');
             res.status(200).json({ message: 'Password updated successfully' });
         } catch (err) {
             console.error('Error updating password:', err);

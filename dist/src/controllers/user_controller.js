@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
 const base_controller_1 = __importDefault(require("./base_controller"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class UserController extends base_controller_1.default {
     constructor() {
@@ -60,6 +61,26 @@ class UserController extends base_controller_1.default {
                 user.password = hashedPassword;
                 yield user.save();
                 console.log('User updated successfully');
+                // Setup email transport
+                const transporter = nodemailer_1.default.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 587,
+                    secure: false, // true for 465, false for other ports
+                    auth: {
+                        user: process.env.EMAILUSER,
+                        pass: process.env.EMAILPASS,
+                    }
+                });
+                // Email options
+                const mailOptions = {
+                    from: process.env.EMAILUSER,
+                    to: email,
+                    subject: 'Password Reset',
+                    text: `Your password has been updated to: ${password}` // Changed 'message' to 'text'
+                };
+                // Send the email
+                yield transporter.sendMail(mailOptions);
+                console.log('Email sent successfully');
                 res.status(200).json({ message: 'Password updated successfully' });
             }
             catch (err) {
