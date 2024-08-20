@@ -2,7 +2,6 @@ import User, { IUser } from "../models/user_model";
 import { Request, Response } from "express";
 import BaseController from "./base_controller";
 import nodemailer from 'nodemailer';
-import expressAsyncHandler from 'express-async-handler';
 import dotenv from 'dotenv';
 import bcrypt from "bcryptjs";
 
