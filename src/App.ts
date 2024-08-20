@@ -10,6 +10,7 @@ import userRoute from "./routes/user_route";
 import foodRoute from "./routes/food_route"; 
 import prograssRoute from "./routes/prograss_route"; 
 import fileRoute from "./routes/file_route"; 
+import emailRoutes from './routes/mail_route';
 import cors from 'cors';
 
 app.use('/uploads', express.static('uploads'));
@@ -35,6 +36,7 @@ const initApp = () => {
       app.use("/auth", authRoute);
       app.use("/prograss", prograssRoute);
       app.use("/file", fileRoute);
+      app.use('/send-email', emailRoutes);
       resolve(app);
     })
   });

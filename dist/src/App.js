@@ -15,6 +15,7 @@ const user_route_1 = __importDefault(require("./routes/user_route"));
 const food_route_1 = __importDefault(require("./routes/food_route"));
 const prograss_route_1 = __importDefault(require("./routes/prograss_route"));
 const file_route_1 = __importDefault(require("./routes/file_route"));
+const mail_route_1 = __importDefault(require("./routes/mail_route"));
 const cors_1 = __importDefault(require("cors"));
 app.use('/uploads', express_1.default.static('uploads'));
 const initApp = () => {
@@ -37,6 +38,7 @@ const initApp = () => {
             app.use("/auth", auth_route_1.default);
             app.use("/prograss", prograss_route_1.default);
             app.use("/file", file_route_1.default);
+            app.use('/send-email', mail_route_1.default);
             resolve(app);
         });
     });
