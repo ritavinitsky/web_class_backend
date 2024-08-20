@@ -1,8 +1,4 @@
 "use strict";
-// import { Request, Response } from "express"
-// import User from "../models/user_model"
-// import bcrypt from "bcryptjs"
-// import jwt from 'jsonwebtoken'
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -148,47 +144,87 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }));
 });
+// const refresh = async (req: Request, res: Response) => 
+// {
+//     //extract token from header
+//     const authHeader = req.headers['authorization']
+//     const oldRefreshToken = authHeader && authHeader.split(' ')[1];
+//     console.log("authHeader: ", authHeader);
+//     console.log("oldRefreshToken: ", oldRefreshToken);
+//     if(oldRefreshToken == null)
+//     {
+//         return res.status(401).send("missing token");
+//     }
+//     //verify token
+//     jwt.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET, async(err, userInfo: {_id: string}) => {
+//         console.log("server verify: ");
+//         if (err) {
+//             console.log(err);
+//             return res.status(403).send(err.name); 
+//         }
+//         try {
+//             console.log("userInfo._id")
+//             console.log(userInfo._id);
+//             const user = await User.findById(userInfo._id);
+//             if (user == null || user.tokens == null || !user.tokens.includes(oldRefreshToken)) {
+//                 if(user.tokens != null) {
+//                     user.tokens = [];
+//                     await user.save();
+//                 }
+//                 return res.status(403).send("invalid token");
+//             }
+//             //generate new refresh token
+//             const {accessToken, refreshToken} = generateTokens(user._id.toString())
+//             //update refresh token in db
+//             user.tokens = user.tokens.filter(token => token !== oldRefreshToken);
+//             user.tokens.push(refreshToken.toString())
+//             await user.save()
+//             //return new access token & new refresh token
+//             return res.status(200).send({'accessToken': accessToken, 'refreshToken': refreshToken.toString()})
+//         } catch (error) {
+//             console.log(error);
+//             return res.status(400).send(error.message)
+//         }
+//     });
+// }
 const refresh = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //extract token from header
-    const authHeader = req.headers['authorization'];
-    const oldRefreshToken = authHeader && authHeader.split(' ')[1];
-    console.log("authHeader: ", authHeader);
-    console.log("oldRefreshToken: ", oldRefreshToken);
-    if (oldRefreshToken == null) {
-        return res.status(401).send("missing token");
-    }
-    //verify token
-    jsonwebtoken_1.default.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET, (err, userInfo) => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("server verify: ");
-        if (err) {
-            console.log(err);
-            return res.status(403).send(err.name);
+    try {
+        // Extract token from header
+        const authHeader = req.headers['authorization'];
+        const oldRefreshToken = authHeader && authHeader.split(' ')[1];
+        if (!oldRefreshToken) {
+            return res.status(401).json({ message: 'Missing token' });
         }
-        try {
-            console.log("userInfo._id");
-            console.log(userInfo._id);
-            const user = yield user_model_1.default.findById(userInfo._id);
-            if (user == null || user.tokens == null || !user.tokens.includes(oldRefreshToken)) {
-                if (user.tokens != null) {
-                    user.tokens = [];
-                    yield user.save();
+        // Verify token
+        const userInfo = yield new Promise((resolve, reject) => {
+            jsonwebtoken_1.default.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+                if (err) {
+                    return reject(err);
                 }
-                return res.status(403).send("invalid token");
+                resolve(decoded);
+            });
+        });
+        const user = yield user_model_1.default.findById(userInfo._id);
+        if (!user || !user.tokens.includes(oldRefreshToken)) {
+            if (user && user.tokens) {
+                user.tokens = [];
+                yield user.save();
             }
-            //generate new refresh token
-            const { accessToken, refreshToken } = generateTokens(user._id.toString());
-            //update refresh token in db
-            user.tokens = user.tokens.filter(token => token !== oldRefreshToken);
-            user.tokens.push(refreshToken.toString());
-            yield user.save();
-            //return new access token & new refresh token
-            return res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken.toString() });
+            return res.status(403).json({ message: 'Invalid token' });
         }
-        catch (error) {
-            console.log(error);
-            return res.status(400).send(error.message);
-        }
-    }));
+        // Generate new tokens
+        const { accessToken, refreshToken } = generateTokens(user._id.toString());
+        // Update refresh tokens in the database
+        user.tokens = user.tokens.filter(token => token !== oldRefreshToken);
+        user.tokens.push(refreshToken.toString());
+        yield user.save();
+        // Return new tokens
+        return res.status(200).json({ accessToken, refreshToken: refreshToken.toString() });
+    }
+    catch (error) {
+        console.error('Error during token refresh:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
 });
 exports.default = {
     register,

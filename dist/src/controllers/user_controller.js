@@ -103,6 +103,7 @@ class UserController extends base_controller_1.default {
                 item.age = req.body.age;
                 item.dailyCal = req.body.dailyCal;
                 item.password = req.body.password;
+                item.remainingCalories = req.body.remainingCalories;
                 // item.imgUrl = req.body.imgUrl;
                 yield item.save(); // Save the updated item
                 res.status(200).json(item);
