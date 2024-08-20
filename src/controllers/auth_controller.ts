@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import User from "../models/user_model"
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken'
 
 const register = async (req: Request, res: Response) => {
@@ -212,7 +212,6 @@ const refresh = async (req: Request, res: Response) =>
 
     
 }
-
 
 export default{
     register,

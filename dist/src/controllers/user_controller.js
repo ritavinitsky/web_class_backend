@@ -90,27 +90,24 @@ class UserController extends base_controller_1.default {
         });
     }
     put(req, res) {
+        const _super = Object.create(null, {
+            put: { get: () => super.put }
+        });
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log("update user id: " + req.params.id);
                 let item = yield user_model_1.default.findById(req.params.id);
-                if (!item) {
-                    res.status(404).json({ message: 'User not found' });
-                    return;
-                }
                 item.name = req.body.name;
                 item.email = req.body.email;
                 item.age = req.body.age;
                 item.dailyCal = req.body.dailyCal;
-                item.password = req.body.password;
-                item.remainingCalories = req.body.remainingCalories;
-                // item.imgUrl = req.body.imgUrl;
-                yield item.save(); // Save the updated item
-                res.status(200).json(item);
+                //item.imgUrl = req.body.imgUrl;
+                req.body = item;
+                _super.put.call(this, req, res);
                 console.log(item.dailyCal);
             }
             catch (err) {
-                console.error("The error in updating user is: " + err);
+                console.log("The error in updating user is: " + err);
                 res.status(400).send(err.message);
             }
         });

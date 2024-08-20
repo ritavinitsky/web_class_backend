@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Received request body:", req.body);
@@ -29,8 +29,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(409).json({ message: "Email already exists", });
         }
         console.log("Hashing password...");
-        const salt = yield bcryptjs_1.default.genSalt(10);
-        const hashedPassword = yield bcryptjs_1.default.hash(password, salt);
+        const salt = yield bcrypt_1.default.genSalt(10);
+        const hashedPassword = yield bcrypt_1.default.hash(password, salt);
         console.log("Creating new user...");
         const newUser = yield user_model_1.default.create({
             name,
@@ -85,7 +85,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log("Input password:", password);
         console.log("Stored hashed password:", user.password);
         // Compare the input password with the stored hashed password
-        const validPassword = yield bcryptjs_1.default.compare(password, user.password);
+        const validPassword = yield bcrypt_1.default.compare(password, user.password);
         console.log("Password valid?:", validPassword);
         if (validPassword) {
             const { accessToken, refreshToken } = generateTokens(user._id.toString());
