@@ -101,6 +101,7 @@ class UserController extends base_controller_1.default {
                 item.email = req.body.email;
                 item.age = req.body.age;
                 item.dailyCal = req.body.dailyCal;
+                item.remaningCal = req.body.remaningCal;
                 //item.imgUrl = req.body.imgUrl;
                 req.body = item;
                 _super.put.call(this, req, res);
