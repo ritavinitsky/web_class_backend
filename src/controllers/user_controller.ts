@@ -91,7 +91,7 @@ class UserController extends BaseController<IUser> {
     async updateRemaningCalories(req: Request, res: Response) {
         console.log("update remaining calories");
     
-        const { userId, remaningCalories } = req.body;
+        const { userId, remaningCalories ,inputs} = req.body;
         
         if (!userId || remaningCalories === undefined) {
             return res.status(400).json({ message: 'User ID and remaningCalories are required' });
@@ -108,6 +108,16 @@ class UserController extends BaseController<IUser> {
             console.log('User found:', user);
     
             user.remaningCal = Math.floor(remaningCalories); // Update the field
+
+             // Add the input records to the user
+        const formattedInputs = inputs.map((input: { food: string; cal: string; }) => ({
+            food: input.food,
+            cal: parseFloat(input.cal),
+            date: new Date(), // Current date for the input
+        }));
+
+        user.inputRecords.push(...formattedInputs);
+
             await user.save();
     
             console.log('User updated successfully');

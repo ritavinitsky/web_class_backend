@@ -1,24 +1,49 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IUser {
+// Define the interface for input records
+interface IInputRecord {
+    food: string;
+    cal: number;
+    date: Date;
+}
+
+export interface IUser extends Document {
     name: string;
     email: string;
     age: string;
-    // imgUrl: string;
     password: string;
     dailyCal: string;
-    remaningCal:number;
+    remaningCal: number;
+    inputRecords: IInputRecord[];
     tokens: string[];
-  }
+}
 
-const user_schema = new mongoose.Schema<IUser>({
+// Define the input record schema
+const inputRecordSchema = new Schema<IInputRecord>({
+    food: {
+        type: String,
+        required: true
+    },
+    cal: {
+        type: Number,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Define the user schema
+const userSchema = new Schema<IUser>({
     name: {
         type: String,
         required: true
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     age: {
         type: String,
@@ -32,10 +57,14 @@ const user_schema = new mongoose.Schema<IUser>({
         type: String
     },
     remaningCal: {
-        type: Number
+        type: Number,
+        default: 0
     },
+    inputRecords: [inputRecordSchema],
     tokens: {
-        type: [String]
+        type: [String],
+        default: []
     }
-})
-export default mongoose.model<IUser>("User", user_schema)
+});
+
+export default mongoose.model<IUser>('User', userSchema);
