@@ -25,7 +25,7 @@ const user_schema = new mongoose_1.default.Schema({
         type: String
     },
     remaningCal: {
-        type: String
+        type: Number
     },
     tokens: {
         type: [String]

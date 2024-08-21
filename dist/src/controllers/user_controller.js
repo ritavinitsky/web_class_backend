@@ -103,7 +103,7 @@ class UserController extends base_controller_1.default {
                     return res.status(404).json({ message: 'User not found' });
                 }
                 console.log('User found:', user);
-                user.remaningCal = remaningCalories; // Update the field
+                user.remaningCal = Math.floor(remaningCalories); // Update the field
                 yield user.save();
                 console.log('User updated successfully');
                 res.status(200).json({ message: 'Remaining calories updated successfully', user });

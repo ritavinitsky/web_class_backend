@@ -107,7 +107,7 @@ class UserController extends BaseController<IUser> {
     
             console.log('User found:', user);
     
-            user.remaningCal = remaningCalories; // Update the field
+            user.remaningCal = Math.floor(remaningCalories); // Update the field
             await user.save();
     
             console.log('User updated successfully');
