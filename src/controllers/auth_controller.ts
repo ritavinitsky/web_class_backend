@@ -55,13 +55,6 @@ const register = async (req: Request, res: Response) => {
     }
 };
 
-
-
-
-
-
-
-
 const generateTokens = (userId: string) => {
     const accessToken = jwt.sign({ _id: userId }, process.env.TOKEN_SECRET as string, { expiresIn: process.env.TOKEN_EXPIRATION });
     const refreshToken = jwt.sign({ _id: userId }, process.env.REFRESH_TOKEN_SECRET as string);
@@ -126,13 +119,6 @@ const login = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "An error occurred during login" });
     }
 };
-
-
-
-
-
-
-
 
 const logout = async(req: Request, res: Response) => 
 {

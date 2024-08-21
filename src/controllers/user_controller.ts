@@ -97,6 +97,7 @@ class UserController extends BaseController<IUser> {
             item.email = req.body.email;
             item.age = req.body.age;
             item.dailyCal = req.body.dailyCal;
+            item.remaningCal = req.body.remaningCal;
             //item.imgUrl = req.body.imgUrl;
             req.body = item;
             super.put(req, res);

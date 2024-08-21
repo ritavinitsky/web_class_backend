@@ -7,7 +7,7 @@ export interface IUser {
     // imgUrl: string;
     password: string;
     dailyCal: string;
-    remainingCal:string;
+    remaningCal:string;
     tokens: string[];
   }
 
@@ -31,7 +31,7 @@ const user_schema = new mongoose.Schema<IUser>({
     dailyCal: {
         type: String
     },
-    remainingCal: {
+    remaningCal: {
         type: String
     },
     tokens: {
