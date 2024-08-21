@@ -87,6 +87,38 @@ class UserController extends BaseController<IUser> {
             res.status(500).send(err.message);
         }
     }
+
+    async updateRemainingCalories(req: Request, res: Response) {
+        console.log("update remaining calories");
+    
+        const { userId, remainingCalories } = req.body;
+    
+        if (!userId || remainingCalories === undefined) {
+            return res.status(400).json({ message: 'User ID and remainingCalories are required' });
+        }
+    
+        try {
+            console.log(`Finding user by ID: ${userId}`);
+            const user = await User.findById(userId);
+    
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+    
+            console.log('User found:', user);
+    
+            user.remaningCal = remainingCalories; // Update the field
+            await user.save();
+    
+            console.log('User updated successfully');
+    
+            res.status(200).json({ message: 'Remaining calories updated successfully', user });
+        } catch (err) {
+            console.error('Error updating remaining calories:', err);
+            res.status(500).send(err.message);
+        }
+    }
+    
     
 
     async put(req: Request, res: Response) {
