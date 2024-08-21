@@ -8,6 +8,7 @@ const register = async (req: Request, res: Response) => {
 
     const { email, name, age, password } = req.body;
     const dailyCal = '0';
+    const remaningCal = '0';
 
     if (!email || !password) {
         console.log("Missing email or password");
@@ -31,6 +32,7 @@ const register = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             dailyCal,
+            remaningCal,
         });
 
         const { accessToken, refreshToken } = generateTokens(newUser._id.toString());

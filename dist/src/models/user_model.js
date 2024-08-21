@@ -24,7 +24,7 @@ const user_schema = new mongoose_1.default.Schema({
     dailyCal: {
         type: String
     },
-    remainingCalories: {
+    remainingCal: {
         type: String
     },
     tokens: {

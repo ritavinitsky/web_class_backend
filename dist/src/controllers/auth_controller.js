@@ -19,6 +19,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Received request body:", req.body);
     const { email, name, age, password } = req.body;
     const dailyCal = '0';
+    const remaningCal = '0';
     if (!email || !password) {
         console.log("Missing email or password");
         return res.status(400).json({ message: "Missing email or password" });
@@ -38,6 +39,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             email,
             password: hashedPassword,
             dailyCal,
+            remaningCal,
         });
         const { accessToken, refreshToken } = generateTokens(newUser._id.toString());
         // Ensure tokens array exists
