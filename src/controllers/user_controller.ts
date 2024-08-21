@@ -88,13 +88,13 @@ class UserController extends BaseController<IUser> {
         }
     }
 
-    async updateRemainingCalories(req: Request, res: Response) {
+    async updateRemaningCalories(req: Request, res: Response) {
         console.log("update remaining calories");
     
-        const { userId, remainingCalories } = req.body;
-    
-        if (!userId || remainingCalories === undefined) {
-            return res.status(400).json({ message: 'User ID and remainingCalories are required' });
+        const { userId, remaningCalories } = req.body;
+        
+        if (!userId || remaningCalories === undefined) {
+            return res.status(400).json({ message: 'User ID and remaningCalories are required' });
         }
     
         try {
@@ -107,7 +107,7 @@ class UserController extends BaseController<IUser> {
     
             console.log('User found:', user);
     
-            user.remaningCal = remainingCalories; // Update the field
+            user.remaningCal = remaningCalories; // Update the field
             await user.save();
     
             console.log('User updated successfully');

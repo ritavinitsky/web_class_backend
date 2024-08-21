@@ -17,5 +17,5 @@ router.get("/email/:email", UserController.getByEmail.bind(UserController));
 router.put("/email/:email/password", UserController.updatePasswordByEmail.bind(UserController));
 
 // Define the route to update remaining calories
-router.post('/updateRemainingCalories', UserController.updateRemainingCalories.bind(UserController));
+router.post('/updateRemaningCalories', UserController.updateRemaningCalories.bind(UserController));
 export default router;

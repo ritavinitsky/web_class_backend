@@ -89,12 +89,12 @@ class UserController extends base_controller_1.default {
             }
         });
     }
-    updateRemainingCalories(req, res) {
+    updateRemaningCalories(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("update remaining calories");
-            const { userId, remainingCalories } = req.body;
-            if (!userId || remainingCalories === undefined) {
-                return res.status(400).json({ message: 'User ID and remainingCalories are required' });
+            const { userId, remaningCalories } = req.body;
+            if (!userId || remaningCalories === undefined) {
+                return res.status(400).json({ message: 'User ID and remaningCalories are required' });
             }
             try {
                 console.log(`Finding user by ID: ${userId}`);
@@ -103,7 +103,7 @@ class UserController extends base_controller_1.default {
                     return res.status(404).json({ message: 'User not found' });
                 }
                 console.log('User found:', user);
-                user.remaningCal = remainingCalories; // Update the field
+                user.remaningCal = remaningCalories; // Update the field
                 yield user.save();
                 console.log('User updated successfully');
                 res.status(200).json({ message: 'Remaining calories updated successfully', user });
