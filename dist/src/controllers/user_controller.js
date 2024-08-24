@@ -92,7 +92,7 @@ class UserController extends base_controller_1.default {
     updateRemaningCalories(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("update remaining calories");
-            const { userId, remaningCalories, inputs } = req.body;
+            const { userId, remaningCalories, input } = req.body;
             if (!userId || remaningCalories === undefined) {
                 return res.status(400).json({ message: 'User ID and remaningCalories are required' });
             }
@@ -104,13 +104,13 @@ class UserController extends base_controller_1.default {
                 }
                 console.log('User found:', user);
                 user.remaningCal = Math.floor(remaningCalories); // Update the field
-                // Add the input records to the user
-                const formattedInputs = inputs.map((input) => ({
+                // Only add the most recent input
+                const formattedInput = {
                     food: input.food,
-                    cal: parseFloat(input.cal),
-                    date: new Date(), // Current date for the input
-                }));
-                user.inputRecords.push(formattedInputs);
+                    cal: input.cal,
+                    date: new Date().toISOString().split('T')[0],
+                };
+                user.inputRecords.push(formattedInput);
                 yield user.save();
                 console.log('User updated successfully');
                 res.status(200).json({ message: 'Remaining calories updated successfully', user });
