@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 // Define the interface for input records
 interface IInputRecord {
     food: string;
-    cal: number;
+    cal: string;
     date: Date;
 }
 
@@ -25,7 +25,7 @@ const inputRecordSchema = new Schema<IInputRecord>({
         required: true
     },
     cal: {
-        type: Number,
+        type: String,
         required: true
     },
     date: {

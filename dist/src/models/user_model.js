@@ -31,7 +31,7 @@ const inputRecordSchema = new mongoose_1.Schema({
         required: true
     },
     cal: {
-        type: Number,
+        type: String,
         required: true
     },
     date: {
