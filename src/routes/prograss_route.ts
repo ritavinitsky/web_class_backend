@@ -17,8 +17,8 @@ router.get('/', async (req: Request, res: Response) => {
 // Create a new prograss record
 router.post('/', async (req: Request, res: Response) => {
     try {
-        const { date, passed } = req.body;
-        const newPrograss = new Prograss({ date: new Date(date), passed });
+        const { date, passed, userId } = req.body;
+        const newPrograss = new Prograss({ date: new Date(date), passed, userId });
         const savedPrograss = await newPrograss.save();
         res.status(201).json(savedPrograss);
     } catch (error) {

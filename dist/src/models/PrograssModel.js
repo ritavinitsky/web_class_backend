@@ -27,6 +27,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const PrograssSchema = new mongoose_1.Schema({
     date: { type: Date, required: true },
     passed: { type: Boolean, required: true },
+    userId: { type: String, required: true },
 });
 const Prograss = mongoose_1.default.model('prograss', PrograssSchema);
 exports.default = Prograss;

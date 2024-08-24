@@ -29,8 +29,8 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 // Create a new prograss record
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { date, passed } = req.body;
-        const newPrograss = new PrograssModel_1.default({ date: new Date(date), passed });
+        const { date, passed, userId } = req.body;
+        const newPrograss = new PrograssModel_1.default({ date: new Date(date), passed, userId });
         const savedPrograss = yield newPrograss.save();
         res.status(201).json(savedPrograss);
     }
