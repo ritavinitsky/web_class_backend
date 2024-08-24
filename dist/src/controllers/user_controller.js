@@ -110,7 +110,7 @@ class UserController extends base_controller_1.default {
                     cal: parseFloat(input.cal),
                     date: new Date(), // Current date for the input
                 }));
-                user.inputRecords.push(...formattedInputs);
+                user.inputRecords.push(formattedInputs);
                 yield user.save();
                 console.log('User updated successfully');
                 res.status(200).json({ message: 'Remaining calories updated successfully', user });

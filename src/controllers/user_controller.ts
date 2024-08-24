@@ -116,7 +116,7 @@ class UserController extends BaseController<IUser> {
             date: new Date(), // Current date for the input
         }));
 
-        user.inputRecords.push(...formattedInputs);
+        user.inputRecords.push(formattedInputs);
 
             await user.save();
     
