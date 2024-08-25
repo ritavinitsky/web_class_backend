@@ -15,6 +15,7 @@ export interface IUser extends Document {
     dailyCal: string;
     remaningCal: number;
     inputRecords: IInputRecord[];
+    waterCups: string[];
     tokens: string[];
 }
 
@@ -61,6 +62,10 @@ const userSchema = new Schema<IUser>({
         default: 0
     },
     inputRecords: [inputRecordSchema],
+    waterCups: {
+        type: [String],
+        default: Array(8).fill('blue') // or any default value you prefer
+    },
     tokens: {
         type: [String],
         default: []

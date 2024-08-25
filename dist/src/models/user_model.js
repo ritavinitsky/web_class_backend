@@ -66,6 +66,10 @@ const userSchema = new mongoose_1.Schema({
         default: 0
     },
     inputRecords: [inputRecordSchema],
+    waterCups: {
+        type: [String],
+        default: Array(8).fill('blue') // or any default value you prefer
+    },
     tokens: {
         type: [String],
         default: []
