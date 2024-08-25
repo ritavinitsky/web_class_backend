@@ -74,6 +74,10 @@ const userSchema = new mongoose_1.Schema({
         type: Number,
         default: 0
     },
+    days: {
+        type: Number,
+        default: 0
+    },
     tokens: {
         type: [String],
         default: []

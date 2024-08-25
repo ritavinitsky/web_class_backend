@@ -17,6 +17,7 @@ export interface IUser extends Document {
     inputRecords: IInputRecord[];
     waterCups: string[];
     weeks: number;
+    days: number;
     tokens: string[];
 }
 
@@ -68,6 +69,10 @@ const userSchema = new Schema<IUser>({
         default: Array(8).fill('blue') // or any default value you prefer
     },
     weeks:{
+        type: Number,
+        default: 0
+    },
+    days:{
         type: Number,
         default: 0
     },

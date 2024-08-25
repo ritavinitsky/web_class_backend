@@ -91,7 +91,7 @@ class UserController extends BaseController<IUser> {
     async updateRemaningCalories(req: Request, res: Response) {
         console.log("update remaining calories");
     
-        const { userId, remaningCalories ,input, waterColors} = req.body;
+        const { userId, remaningCalories ,input, waterColors,days} = req.body;
         
         if (!userId || remaningCalories === undefined) {
             return res.status(400).json({ message: 'User ID and remaningCalories are required' });
@@ -109,6 +109,7 @@ class UserController extends BaseController<IUser> {
     
             user.remaningCal = Math.floor(remaningCalories); // Update the field
             user.waterCups = waterColors;
+            user.days = days;
 
         // Only add the most recent input
         const formattedInput = {
@@ -142,6 +143,7 @@ class UserController extends BaseController<IUser> {
             item.dailyCal = req.body.dailyCal;
             item.remaningCal = req.body.remaningCal;
             item.weeks = req.body.weeks;
+            item.days = req.body.days;
             //item.imgUrl = req.body.imgUrl;
             req.body = item;
             super.put(req, res);
