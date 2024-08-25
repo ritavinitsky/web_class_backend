@@ -70,6 +70,10 @@ const userSchema = new mongoose_1.Schema({
         type: [String],
         default: Array(8).fill('blue') // or any default value you prefer
     },
+    weeks: {
+        type: Number,
+        default: 0
+    },
     tokens: {
         type: [String],
         default: []
