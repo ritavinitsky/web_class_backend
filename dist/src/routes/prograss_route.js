@@ -18,7 +18,7 @@ const router = express_1.default.Router();
 // Get all documents with date and passed fields
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const prograssRecords = yield PrograssModel_1.default.find({}, 'date passed');
+        const prograssRecords = yield PrograssModel_1.default.find({}, 'date passed userId');
         res.status(200).json(prograssRecords);
     }
     catch (error) {

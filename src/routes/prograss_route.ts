@@ -6,7 +6,7 @@ const router = express.Router();
 // Get all documents with date and passed fields
 router.get('/', async (req: Request, res: Response) => {
     try {
-        const prograssRecords = await Prograss.find({}, 'date passed');
+        const prograssRecords = await Prograss.find({}, 'date passed userId');
         res.status(200).json(prograssRecords);
     } catch (error) {
         console.error("Error fetching prograss records:", error.message);
