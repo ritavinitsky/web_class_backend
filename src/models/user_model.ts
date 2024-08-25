@@ -134,7 +134,7 @@ const waterCupschema = new Schema<IWaterColor>({
     },
     date: {
         type: String,
-        default: () => new Date().toISOString().split('T')[0] // Default to current date in YYYY-MM-DD format
+        required: true
     }
 });
 
@@ -165,14 +165,20 @@ const userSchema = new Schema<IUser>({
         default: 0
     },
     inputRecords: [inputRecordSchema],
-    waterCups: {
-        type: [waterCupschema],
-        default: Array(8).fill(null).map(() => ({ color: 'blue', date: new Date().toISOString().split('T')[0] })) // Default to 8 blue colors with the current date
-    },
+    waterCups:[waterCupschema],
     tokens: {
         type: [String],
         default: []
     }
+});
+
+// Middleware to format date as YYYY-MM-DD before saving input records
+waterCupschema.pre('save', function (next) {
+    if (this.date) {
+        const date = new Date(this.date);
+        this.date = date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    }
+    next();
 });
 
 // Middleware to format date as YYYY-MM-DD before saving input records
