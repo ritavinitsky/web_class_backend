@@ -81,7 +81,19 @@ const userSchema = new mongoose_1.Schema({
     tokens: {
         type: [String],
         default: []
-    }
+    },
+    starRatings: [{
+            recipeId: {
+                type: String,
+                required: true
+            },
+            stars: {
+                type: Number,
+                required: true,
+                min: 1,
+                max: 5
+            }
+        }]
 });
 // Middleware to format date as YYYY-MM-DD before saving
 inputRecordSchema.pre('save', function (next) {

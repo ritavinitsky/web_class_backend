@@ -7,6 +7,12 @@ interface IInputRecord {
     date: string; // Change from Date to string
 }
 
+// Define the interface for star ratings
+interface IStarRating {
+    recipeId: string; // Assume recipe ID is a string
+    stars: number; // Star count ranging from 1 to 5
+}
+
 export interface IUser extends Document {
     name: string;
     email: string;
@@ -18,6 +24,7 @@ export interface IUser extends Document {
     waterCups: string[];
     weeks: number;
     days: number;
+    starRatings: IStarRating[];
     tokens: string[];
 }
 
@@ -79,7 +86,19 @@ const userSchema = new Schema<IUser>({
     tokens: {
         type: [String],
         default: []
-    }
+    },
+    starRatings: [{ // Add this section
+        recipeId: {
+            type: String,
+            required: true
+        },
+        stars: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 5
+        }
+    }]
 });
 
 // Middleware to format date as YYYY-MM-DD before saving
@@ -92,4 +111,3 @@ inputRecordSchema.pre('save', function (next) {
 });
 
 export default mongoose.model<IUser>('User', userSchema);
-

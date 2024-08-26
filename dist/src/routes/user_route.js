@@ -16,5 +16,6 @@ router.get("/email/:email", user_controller_1.default.getByEmail.bind(user_contr
 router.put("/email/:email/password", user_controller_1.default.updatePasswordByEmail.bind(user_controller_1.default));
 // Define the route to update remaining calories
 router.post('/updateRemaningCalories', user_controller_1.default.updateRemaningCalories.bind(user_controller_1.default));
+router.put('/updateStarRatings', user_controller_1.default.updateStarRatings.bind(user_controller_1.default));
 exports.default = router;
 //# sourceMappingURL=user_route.js.map

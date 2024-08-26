@@ -20,6 +20,38 @@ class UserController extends base_controller_1.default {
     constructor() {
         super(user_model_1.default);
     }
+    updateStarRatings(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { userId, recipeId, stars } = req.body;
+            if (!userId || !recipeId || !stars) {
+                return res.status(400).json({ message: 'User ID, recipe ID, and stars are required' });
+            }
+            try {
+                console.log(`Updating star rating for user ID: ${userId}, recipe ID: ${recipeId}, stars: ${stars}`);
+                const user = yield user_model_1.default.findById(userId);
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+                // Find the index of the existing rating for the recipe
+                const existingRatingIndex = user.starRatings.findIndex(rating => rating.recipeId === recipeId);
+                if (existingRatingIndex !== -1) {
+                    // Update existing rating
+                    user.starRatings[existingRatingIndex].stars = stars;
+                }
+                else {
+                    // Add new rating
+                    user.starRatings.push({ recipeId, stars });
+                }
+                yield user.save();
+                console.log('User star ratings updated successfully');
+                res.status(200).json({ message: 'Star ratings updated successfully', user });
+            }
+            catch (err) {
+                console.error('Error updating star ratings:', err);
+                res.status(500).send(err.message);
+            }
+        });
+    }
     getByEmail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = req.params;

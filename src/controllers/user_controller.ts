@@ -10,6 +10,41 @@ class UserController extends BaseController<IUser> {
         super(User);
     }
 
+    async updateStarRatings(req: Request, res: Response) {
+        const { userId, recipeId, stars } = req.body;
+
+        if (!userId || !recipeId || !stars) {
+            return res.status(400).json({ message: 'User ID, recipe ID, and stars are required' });
+        }
+
+        try {
+            console.log(`Updating star rating for user ID: ${userId}, recipe ID: ${recipeId}, stars: ${stars}`);
+            const user = await User.findById(userId);
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Find the index of the existing rating for the recipe
+            const existingRatingIndex = user.starRatings.findIndex(rating => rating.recipeId === recipeId);
+
+            if (existingRatingIndex !== -1) {
+                // Update existing rating
+                user.starRatings[existingRatingIndex].stars = stars;
+            } else {
+                // Add new rating
+                user.starRatings.push({ recipeId, stars });
+            }
+
+            await user.save();
+            console.log('User star ratings updated successfully');
+            res.status(200).json({ message: 'Star ratings updated successfully', user });
+        } catch (err) {
+            console.error('Error updating star ratings:', err);
+            res.status(500).send(err.message);
+        }
+    }
+    
     async getByEmail(req: Request, res: Response) {
         const { email } = req.params;
 
@@ -131,8 +166,6 @@ class UserController extends BaseController<IUser> {
         }
     }
     
-    
-
     async put(req: Request, res: Response) {
         try{
             console.log("update user id: " + req.params.id)
