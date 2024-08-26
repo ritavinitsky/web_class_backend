@@ -33,7 +33,16 @@ class UserController extends base_controller_1.default {
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }
-                user.starRatings.push({ recipeId, stars });
+                // Find if the user already has a rating for the recipe
+                const existingRatingIndex = user.starRatings.findIndex(rating => rating.recipeId === recipeId);
+                if (existingRatingIndex > -1) {
+                    // Update existing rating
+                    user.starRatings[existingRatingIndex].stars = stars;
+                }
+                else {
+                    // Add new rating
+                    user.starRatings.push({ recipeId, stars });
+                }
                 console.log('User before saving:', user);
                 yield user.save();
                 console.log('User after saving:', user);
