@@ -43,7 +43,9 @@ class UserController extends base_controller_1.default {
                     // Add new rating
                     user.starRatings.push({ recipeId, stars });
                 }
+                console.log('User before saving:', user);
                 yield user.save();
+                console.log('User after saving:', user);
                 console.log('User star ratings updated successfully');
                 res.status(200).json({ message: 'Star ratings updated successfully', user });
             }

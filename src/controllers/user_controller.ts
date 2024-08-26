@@ -37,7 +37,10 @@ class UserController extends BaseController<IUser> {
                 user.starRatings.push({ recipeId, stars });
             }
     
+            console.log('User before saving:', user);
             await user.save();
+            console.log('User after saving:', user);
+
             console.log('User star ratings updated successfully');
             res.status(200).json({ message: 'Star ratings updated successfully', user });
         } catch (err) {
