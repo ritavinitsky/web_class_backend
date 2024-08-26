@@ -93,7 +93,7 @@ const userSchema = new Schema<IUser>({
             required: true
         },
         stars: {
-            type: [Number],
+            type: Number,
             required: true,
         }
     }]

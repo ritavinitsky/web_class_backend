@@ -88,7 +88,7 @@ const userSchema = new mongoose_1.Schema({
                 required: true
             },
             stars: {
-                type: [Number],
+                type: Number,
                 required: true,
             }
         }]
