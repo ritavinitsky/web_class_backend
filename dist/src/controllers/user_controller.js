@@ -35,7 +35,7 @@ class UserController extends base_controller_1.default {
                 }
                 // Find the index of the existing rating for the recipe
                 const existingRatingIndex = user.starRatings.findIndex(rating => rating.recipeId === recipeId);
-                if (existingRatingIndex !== 0 || isNaN(existingRatingIndex)) {
+                if (existingRatingIndex !== 0 || !isNaN(existingRatingIndex)) {
                     // Update existing rating
                     user.starRatings[existingRatingIndex].stars = stars;
                 }
