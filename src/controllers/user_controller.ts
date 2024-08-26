@@ -12,6 +12,8 @@ class UserController extends BaseController<IUser> {
 
     async updateStarRatings(req: Request, res: Response) {
         const { userId, recipeId, stars } = req.body;
+        console.log('stars',stars);
+        
 
         if (!userId || !recipeId || !stars) {
             return res.status(400).json({ message: 'User ID, recipe ID, and stars are required' });
@@ -44,7 +46,7 @@ class UserController extends BaseController<IUser> {
             res.status(500).send(err.message);
         }
     }
-    
+
     async getByEmail(req: Request, res: Response) {
         const { email } = req.params;
 

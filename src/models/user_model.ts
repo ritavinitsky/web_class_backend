@@ -87,16 +87,14 @@ const userSchema = new Schema<IUser>({
         type: [String],
         default: []
     },
-    starRatings: [{ // Add this section
+    starRatings: [{ // Update this section
         recipeId: {
             type: String,
             required: true
         },
         stars: {
-            type: Number,
+            type: [Number],
             required: true,
-            min: 1,
-            max: 5
         }
     }]
 });

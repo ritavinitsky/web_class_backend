@@ -23,6 +23,7 @@ class UserController extends base_controller_1.default {
     updateStarRatings(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId, recipeId, stars } = req.body;
+            console.log('stars', stars);
             if (!userId || !recipeId || !stars) {
                 return res.status(400).json({ message: 'User ID, recipe ID, and stars are required' });
             }
